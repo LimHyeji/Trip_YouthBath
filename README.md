@@ -13,7 +13,7 @@ Jeep 팀의 YouthBath 프로젝트
 ![image](/uploads/3919e46acdcc91ae64d9880a3a3c40c4/image.png)
 
 ### 메인 페이지
-![image](/uploads/58198b07534418162e39258a94f26426/image.png)
+![image](/uploads/8f8a5813aa5d87007aecf67c40ef2a50/image.png)
 
 # 마인드맵
 ![mindmap_현욱혜지_](/uploads/90eab2f069575b62f6a83b52a398d50a/mindmap_현욱혜지_.png)
