@@ -4,9 +4,6 @@ SSAFY 9기 김현욱 &amp; 임혜지
 
 Jeep 팀의 YouthBath 프로젝트
 ---
-|
-|
-
 
 # 페이지 정리
 ### 회원가입 페이지
@@ -34,3 +31,7 @@ Jeep 팀의 YouthBath 프로젝트
 
 ### repository
 ![image](/uploads/fc1d7e39f4ac9fdd0cc24df0983e1726/image.png)
+
+---
+팀노션 링크
+https://heliotrope-agate-a72.notion.site/_-53d914c435174c6b9263d372e03bf71d
