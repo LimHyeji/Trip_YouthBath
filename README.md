@@ -12,4 +12,4 @@ SSAFY 9기 김현욱 &amp; 임혜지
 ![image](/uploads/e67ca88c1916015e9a9380bd29a132ad/image.png)
 
 ## 메인 페이지
-![image](/uploads/5b50dae36f125d4fcd287ab3f8f7fa4e/image.png)
+![image](/uploads/58198b07534418162e39258a94f26426/image.png)
