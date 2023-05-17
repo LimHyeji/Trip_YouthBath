@@ -2,6 +2,7 @@
 
 SSAFY 9기 김현욱 &amp; 임혜지
 
+Jeep 팀의 YouthBath 프로젝트
 ---
 
 # 페이지 정리
