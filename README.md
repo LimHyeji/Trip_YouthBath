@@ -25,11 +25,11 @@ Jeep 팀의 YouthBath 프로젝트
 ### 로그인
 ![image](/uploads/cc29c137c5892a3936d3296d8e6be009/image.png)
 
-# class
-### vo
+# Class Diagram (~ing)
+### VO
 ![image](/uploads/f83c5f02b8dd4e7a695a722d3bcf9072/image.png)
 
-### repository
+### Repository
 ![image](/uploads/fc1d7e39f4ac9fdd0cc24df0983e1726/image.png)
 
 ---
