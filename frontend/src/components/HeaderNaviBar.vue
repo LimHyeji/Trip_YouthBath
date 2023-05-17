@@ -26,7 +26,11 @@
         <!-- after login -->
         <b-navbar-nav class="ml-auto" v-if="userInfo">
           <b-nav-item class="align-self-center">
-            <b-avatar variant="primary" v-text="userInfo.userid.charAt(0).toUpperCase()"></b-avatar>
+            <!--     <b-avatar variant="primary" v-text="userInfo.userid.charAt(0).toUpperCase()"></b-avatar> -->
+            <b-avatar
+              variant="primary"
+              :inner-text.prop="userInfo.userid.charAt(0).toUpperCase()"
+            ></b-avatar>
             {{ userInfo.username }}({{ userInfo.userid }})님 환영합니다.
           </b-nav-item>
           <b-nav-item class="align-self-center">
