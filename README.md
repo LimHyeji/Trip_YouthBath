@@ -25,3 +25,13 @@ Jeep 팀의 YouthBath 프로젝트
 ### 로그인
 ![image](/uploads/cc29c137c5892a3936d3296d8e6be009/image.png)
 
+# Class Diagram (~ing)
+### VO
+![image](/uploads/f83c5f02b8dd4e7a695a722d3bcf9072/image.png)
+
+### Repository
+![image](/uploads/fc1d7e39f4ac9fdd0cc24df0983e1726/image.png)
+
+---
+팀노션 링크
+https://heliotrope-agate-a72.notion.site/_-53d914c435174c6b9263d372e03bf71d
