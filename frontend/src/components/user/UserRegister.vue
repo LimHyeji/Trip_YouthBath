@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: "MemberRegister",
+  name: "UserRegister",
 };
 </script>
 

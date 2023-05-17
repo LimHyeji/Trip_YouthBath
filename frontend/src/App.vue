@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    <navi-bar/>
-    <router-view />
+    <the-header-navbar></the-header-navbar>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import NaviBar from "@/components/layout/HeaderNaviBar.vue";
+import TheHeaderNavbar from "@/components/TheHeaderNavbar";
 
 export default {
   name: "App",
   components: {
-    NaviBar,
+    TheHeaderNavbar,
   },
 };
 </script>
@@ -25,16 +25,11 @@ export default {
   color: #2c3e50;
 }
 
-nav {
-  padding: 30px;
+a.router-link-exact-active {
+  color: #89bfef;
 }
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
+a.router-link-exact-active:hover {
+  text-decoration: none;
 }
 </style>
