@@ -1,5 +1,6 @@
 package com.ssafy.enjoytrip.member.model.vo;
 
+//null일 경우 예외 던지기
 public class MemberVO {
     private String id;
     private String pw;
