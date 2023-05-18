@@ -139,7 +139,7 @@ export default {
       if (!isValid) {
         this.pwMsg = `연속된 숫자를 포함할 수 없으며, 대문자/소문자/숫자/특수문자를 최소 1개씩 포함한 10자 이상의 문자열이어야 합니다`;
         this.pwValid = false;
-      } else if (!isContain) {
+      } else if (isContain) {
         this.pwMsg = `아이디와 3자리 이상의 문자가 중복되어서는 안됩니다`;
         this.pwValid = false;
       } else {
@@ -150,7 +150,7 @@ export default {
       if (this.pwValid && this.pw === this.pwCheck) {
         this.pwCheckValid = true;
       } else {
-        this.pw = `비밀번호가 일치하지 않습니다`;
+        this.pwCheckMsg = `비밀번호가 일치하지 않습니다`;
         this.pwCheckValid = false;
       }
     },
