@@ -1,3 +1,4 @@
+//부트스트랩 적용 위한 코드
 import Vue from "vue";
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 

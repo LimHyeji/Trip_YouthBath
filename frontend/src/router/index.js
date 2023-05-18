@@ -1,6 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import AppMain from "@/views/AppMain";
+import AppInstagram from "@/views/AppInstagram";
+import AppHouse from "@/views/AppHouse";
+import AppTodo from "@/views/AppTodo";
+import AppElectricCharger from "@/views/AppElectricCharger";
 
 import store from "@/store";
 
@@ -34,6 +38,26 @@ const routes = [
     component: AppMain,
   },
   {
+    path: "/instagram",
+    name: "insta",
+    component: AppInstagram,
+  },
+  {
+    path: "/house",
+    name: "house",
+    component: AppHouse,
+  },
+  {
+    path: "/todo",
+    name: "todo",
+    component: AppTodo,
+  },
+  {
+    path: "/electric",
+    name: "electric",
+    component: AppElectricCharger,
+  },
+  {
     path: "/user",
     name: "user",
     component: () => import(/* webpackChunkName: "user" */ "@/views/AppUser"),
@@ -53,6 +77,43 @@ const routes = [
         name: "mypage",
         beforeEnter: onlyAuthUser,
         component: () => import(/* webpackChunkName: "user" */ "@/components/user/UserMyPage"),
+      },
+    ],
+  },
+  {
+    path: "/board",
+    name: "board",
+    component: () => import(/* webpackChunkName: "board" */ "@/views/AppBoard"),
+    redirect: "/board/list",
+    children: [
+      {
+        path: "list",
+        name: "boardlist",
+        component: () => import(/* webpackChunkName: "board" */ "@/components/board/BoardList"),
+      },
+      {
+        path: "write",
+        name: "boardwrite",
+        beforeEnter: onlyAuthUser,
+        component: () => import(/* webpackChunkName: "board" */ "@/components/board/BoardWrite"),
+      },
+      {
+        path: "view/:articleno",
+        name: "boardview",
+        beforeEnter: onlyAuthUser,
+        component: () => import(/* webpackChunkName: "board" */ "@/components/board/BoardView"),
+      },
+      {
+        path: "modify",
+        name: "boardmodify",
+        beforeEnter: onlyAuthUser,
+        component: () => import(/* webpackChunkName: "board" */ "@/components/board/BoardModify"),
+      },
+      {
+        path: "delete/:articleno",
+        name: "boarddelete",
+        beforeEnter: onlyAuthUser,
+        component: () => import(/* webpackChunkName: "board" */ "@/components/board/BoardDelete"),
       },
     ],
   },
