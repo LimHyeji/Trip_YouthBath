@@ -1,10 +1,11 @@
-package com.ssafy.enjoytrip.util;
+package com.ssafy.enjoytrip.util.encrypt;
 
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class OpenCrypt {
 
-    public static String getSHA256(String source, String salt) throws Exception {
+    public static String getSHA256(String source, String salt) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         md.update(source.getBytes());
         md.update(salt.getBytes());

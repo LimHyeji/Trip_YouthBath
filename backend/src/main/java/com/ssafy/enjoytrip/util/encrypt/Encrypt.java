@@ -1,4 +1,4 @@
-package com.ssafy.enjoytrip.util;
+package com.ssafy.enjoytrip.util.encrypt;
 
 public interface Encrypt {
     public String encrypt(String data) throws Exception;

@@ -1,15 +1,18 @@
 package com.ssafy.enjoytrip.member.model.vo;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 //null일 경우 예외 던지기
-@Entity(name="memberSec")
+@Entity(name="membersec")
 public class MemberSecVO {
 
     @Id
     private String id;
     private String salt;
+
+    @OneToOne
+    @JoinColumn(name="id",referencedColumnName = "id",foreignKey = @ForeignKey(name="fk_membersec_member"))
+    private MemberVO member;
 
     public MemberSecVO(){}
     public MemberSecVO(String id,String salt){

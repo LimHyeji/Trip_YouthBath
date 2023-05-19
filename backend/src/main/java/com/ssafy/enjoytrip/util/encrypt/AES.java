@@ -1,10 +1,13 @@
-package com.ssafy.enjoytrip.util;
+package com.ssafy.enjoytrip.util.encrypt;
+
+import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
+@Component
 public class AES implements Encrypt{
     private static final String AES_ALGORITHM="AES";
     private static final String AES_TRANSFORMATION="AES/ECB/PKCS5Padding";

@@ -1,21 +1,26 @@
 package com.ssafy.enjoytrip.member.model.vo;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 //null일 경우 예외 던지기
 @Entity(name="member")
 public class MemberVO {
     @Id
+    @Column(name="id")
     private String id;
-    private String pw;
+    @Column(name="password")
+    private String password;
+    @Column(name="name")
     private String name;
+
+    @OneToOne(mappedBy="member")
+    private MemberSecVO memberSec;
 
 
     public MemberVO() {  }
     public MemberVO(String id,String pw,String name){
         setId(id);
-        setPw(pw);
+        setPassword(pw);
         setName(name);
     }
 
@@ -28,13 +33,13 @@ public class MemberVO {
         return id;
     }
 
-    public void setPw(String pw){
-        if(pw!=null){
-            this.pw=pw;
+    public void setPassword(String password){
+        if(password!=null){
+            this.password=password;
         }
     }
-    public String getPw(){
-        return pw;
+    public String getPassword(){
+        return password;
     }
 
     public void setName(String name){
@@ -44,5 +49,13 @@ public class MemberVO {
     }
     public String getName(){
         return name;
+    }
+
+    public MemberSecVO getMemberSec() {
+        return memberSec;
+    }
+
+    public void setMemberSec(MemberSecVO memberSec) {
+        this.memberSec = memberSec;
     }
 }

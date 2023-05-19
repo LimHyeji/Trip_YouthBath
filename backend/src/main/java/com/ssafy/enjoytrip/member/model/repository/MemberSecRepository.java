@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MemberSecRepository extends JpaRepository<MemberSecVO,String> {
 
-    String getSalt(String id);
-
-    void insertSec(MemberSecVO memberSecVO);
+//    String getSalt(String id);
+//
+//    void insertSec(MemberSecVO memberSecVO);
 }

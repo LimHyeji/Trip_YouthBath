@@ -1,40 +1,36 @@
 package com.ssafy.enjoytrip.member.controller;
 
+import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
+import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
 import com.ssafy.enjoytrip.member.model.service.MemberService;
-import com.ssafy.enjoytrip.member.model.vo.MemberVO;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ssafy.enjoytrip.member.util.JoinException;
+import com.ssafy.enjoytrip.member.util.LoginException;
+import com.ssafy.enjoytrip.util.dto.Token;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import static com.ssafy.enjoytrip.util.ApiUtils.*;
 
 @Controller
 @RequestMapping("/user")
 public class MemberController {
-
-    //jwt 코드 필요
-    
-    @Autowired
-    MemberService memberService;
-
-    @PostMapping("/regist")
-    public void regist(MemberVO memberVO){
-        try {
-            memberService.regist(memberVO);
-        }catch(Exception e){
-
-        }
+    private final MemberService memberService;
+    public MemberController(MemberService memberService){
+        this.memberService = memberService;
+    }
+    @PostMapping(value = "/regist",consumes = MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ApiResult<String>> regist(@RequestBody MemberJoinDto memberJoinDto) throws JoinException {
+        memberService.regist(memberJoinDto);
+        return success("회원가입 성공", HttpStatus.CREATED);
     }
 
-    @PostMapping("/login")
-    public String login(MemberVO memberVO){
-        String name=null;
-        try {
-            name = memberService.login(memberVO);
-        }catch(Exception e){
-
-        }
-        return name;
+    @PostMapping(value="/login",consumes = MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ApiResult<Token>> login(@RequestBody MemberLoginDto dto) throws LoginException {
+        return success(memberService.login(dto),HttpStatus.OK);
     }
-
-
 }
