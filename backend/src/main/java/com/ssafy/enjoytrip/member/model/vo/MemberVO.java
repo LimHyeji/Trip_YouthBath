@@ -1,7 +1,12 @@
 package com.ssafy.enjoytrip.member.model.vo;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 //null일 경우 예외 던지기
+@Entity(name="member")
 public class MemberVO {
+    @Id
     private String id;
     private String pw;
     private String name;
