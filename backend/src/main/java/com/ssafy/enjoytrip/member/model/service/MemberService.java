@@ -29,7 +29,7 @@ public class MemberService {
     }
 
     public String login(MemberVO memberVO) throws Exception {
-        String salt=memberSecRepository.getSalt(memberVO.getId();
+        String salt=memberSecRepository.getSalt(memberVO.getId());
         //비밀번호 암호화
         String hashPw = OpenCrypt.getSHA256(memberVO.getPw(), salt);
         //비밀번호 세팅
