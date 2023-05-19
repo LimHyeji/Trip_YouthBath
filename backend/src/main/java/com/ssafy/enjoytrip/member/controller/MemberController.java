@@ -18,12 +18,21 @@ public class MemberController {
 
     @PostMapping("/regist")
     public void regist(MemberVO memberVO){
-        memberService.regist(memberVO);
+        try {
+            memberService.regist(memberVO);
+        }catch(Exception e){
+
+        }
     }
 
     @PostMapping("/login")
     public String login(MemberVO memberVO){
-        String name=memberService.login(memberVO);
+        String name=null;
+        try {
+            name = memberService.login(memberVO);
+        }catch(Exception e){
+
+        }
         return name;
     }
 
