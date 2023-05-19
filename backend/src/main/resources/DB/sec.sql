@@ -1,8 +1,8 @@
-create database secdb;
+create database huhjsecdb;
 
-use secdb;
+use huhjsecdb;
 
-create table secMember(
-    id varchar(20),
+create table memberSec(
+    id varchar(20) primary key,
     salt varchar(500)
 );
