@@ -1,10 +1,9 @@
 package com.ssafy.enjoytrip.member.model.repository;
 
 import com.ssafy.enjoytrip.member.model.vo.MemberSecVO;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public interface MemberSecRepository {
+public interface MemberSecRepository extends JpaRepository<MemberSecVO,String> {
 
     String getSalt(String id);
 
