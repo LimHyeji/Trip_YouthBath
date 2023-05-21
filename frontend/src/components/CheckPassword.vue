@@ -7,10 +7,10 @@
           <b-card class="text-center mt-3" style="max-width: 40rem">
             <b-form class="m-2">
               <h2 class="underline-steelblue" style="color:#00bbff; bolder;">
-                <b-icon icon="person-lines-fill" style="color: #00bbff"></b-icon>내정보 조회
+                <b-icon icon="person-lines-fill" style="color: #00bbff"></b-icon>회원가입
               </h2>
               <br /><br />
-              <!-- 비밀번호 확인 후 이동 필요 -->
+              <!-- 검증(이메일 형식, 중복확인, 인증번호) 필요 -->
               <b-form-input
                 id="id"
                 v-model="id"
@@ -71,27 +71,12 @@
 </template>
 
 <script>
-import {mapState,mapMutations } from 'vuex';
 export default {
-    name: "MemberMyPage",
-    components: {},
-    data() {
-        return { };
-    },
-    computed:{
-    ...mapState(['user'])
-    },
-    methods:{
-        ...mapMutations(['clearUser']),
-        logout() {
-        // 로그아웃 로직을 구현하세요.
-        // 로컬 스토리지의 토큰을 제거하고, 상태를 초기화합니다.
-        localStorage.removeItem('accessToken');
-        this.clearUser();
-        alert("로그아웃 되었습니다.");
-        location.href="/";
-        }
-    }
+  name: "MemberMyPage",
+  components: {},
+  data() {
+    return {};
+  },
 };
 </script>
 
