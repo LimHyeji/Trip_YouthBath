@@ -14,6 +14,7 @@ public class MemberJoinDto {
     private String password;
     private String passwordCheck;
     private String name;
+    public MemberJoinDto(){}
 
     public MemberJoinDto(String id, String password, String passwordCheck, String name) throws JoinException {
         setId(id);
@@ -36,14 +37,10 @@ public class MemberJoinDto {
         * 3. 이메일 형식이여야함
         * 4. 아니면 JoinException을 throw
         * */
-        System.out.println("hello world! input = "+id);
         if(!StringUtils.isBlank(id) && id.length() >= 5 && Pattern.matches(pattern,id)){
-            System.out.println("check");
             this.id = id;
         }
         else {
-            System.out.println("uncheck");
-            System.out.println(Pattern.matches(pattern,id));
             throw new JoinException("5자 이상의 이메일을 입력해주세요");
         }
     }
@@ -110,5 +107,15 @@ public class MemberJoinDto {
             throw new JoinException("이름을 입력해주세요");
         }
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "MemberJoinDto{" +
+                "id='" + id + '\'' +
+                ", password='" + password + '\'' +
+                ", passwordCheck='" + passwordCheck + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

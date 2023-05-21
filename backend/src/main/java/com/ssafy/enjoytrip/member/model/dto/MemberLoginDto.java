@@ -6,6 +6,7 @@ import com.ssafy.enjoytrip.util.StringUtils;
 public class MemberLoginDto {
     private String id;
     private String password;
+    public MemberLoginDto(){}
 
     public MemberLoginDto(String id, String password) throws LoginException {
         setId(id);
