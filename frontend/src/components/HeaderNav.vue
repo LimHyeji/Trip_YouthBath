@@ -15,16 +15,17 @@
                         <b-button size="sm" class="my-2 my-sm-0" type="submit">검색</b-button>
                     </b-nav-form> -->
           <b-navbar-nav>
-            <router-link :to="{ name: 'login' }" class="m-2 link">
+            <router-link :to="{ name: 'login' }" class="m-2 link" v-if="!user">
               <b-icon icon="key"></b-icon> 로그인
             </router-link>
-            <router-link :to="{ name: 'regist' }" class="m-2 link">
+            <router-link :to="{ name: 'regist' }" class="m-2 link" v-if="!user">
               <b-icon icon="person-circle"></b-icon> 회원가입
             </router-link>
-            <b-nav-item href="#" disabled>커뮤니티</b-nav-item>
+            <b-nav-item href="#" v-if="user">{{user.response.name}}님 반갑습니다.</b-nav-item>
+            <b-nav-item href="#" v-if="user">커뮤니티</b-nav-item>
           </b-navbar-nav>
           <!-- 로그인 후에만 출력하도록 변경 예정 -->
-          <b-nav-item-dropdown right>
+          <b-nav-item-dropdown right v-if="user">
             <!-- Using 'button-content' slot -->
             <template #button-content>
               <b-icon icon="people" font-scale="2"></b-icon>
@@ -32,7 +33,10 @@
             <b-dropdown-item href="#">
               <router-link :to="{ name: 'mypage' }" class="link align-self-center">
                 마이페이지
-              </router-link>
+              </router-link><br>
+              <a class="link align-self-center" v-on:click="logout">
+                로그아웃
+              </a>
             </b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
@@ -42,11 +46,28 @@
 </template>
 
 <script>
+import {mapState,mapMutations } from 'vuex';
+
 export default {
   name: "HeaderNav",
   data() {
-    return {};
+    return {
+    };
   },
+  computed:{
+    ...mapState(['user'])
+  },
+  methods:{
+    ...mapMutations(['clearUser']),
+    logout() {
+      // 로그아웃 로직을 구현하세요.
+      // 로컬 스토리지의 토큰을 제거하고, 상태를 초기화합니다.
+      localStorage.removeItem('accessToken');
+      this.clearUser();
+      alert("로그아웃 되었습니다.");
+      location.href="/";
+    }
+  }
 };
 </script>
 

@@ -71,6 +71,9 @@
 </template>
 
 <script>
+import http from '@/api/http';
+import parser from '@/api/lib/responseParser';
+
 export default {
   name: "MemberRegist",
   components: {},
@@ -107,6 +110,7 @@ export default {
         this.idValid = false;
       } else {
         this.idValid = true;
+        this.idMsg =``;
       }
     },
     pwInput() {
@@ -144,11 +148,13 @@ export default {
         this.pwValid = false;
       } else {
         this.pwValid = true;
+        this.pwMsg=``;
       }
     },
     pwCheckInput() {
       if (this.pwValid && this.pw === this.pwCheck) {
         this.pwCheckValid = true;
+        this.pwCheckMsg=``;
       } else {
         this.pwCheckMsg = `비밀번호가 일치하지 않습니다`;
         this.pwCheckValid = false;
@@ -164,9 +170,22 @@ export default {
     regist() {
       if (this.idValid && this.pwValid && this.pwCheckValid && this.nameValid) {
         //api 호출
-        alert("ok");
+        http.post("http://localhost:9999/user/regist",JSON.stringify({
+          id:this.id,
+          password:this.pw,
+          passwordCheck:this.pwCheck,
+          name:this.name
+        })).then(function(response){
+          let responseMsg = parser.successParser(response).response;
+          alert(responseMsg);
+          location.href="/member/login";
+
+        }).catch(function(response){
+          let errorMsg = parser.failureParser(response).error.message;
+          alert(errorMsg);
+        });
       } else {
-        alert("fail");
+        alert("입력값을 다시 확인해주세요");
       }
     },
   },

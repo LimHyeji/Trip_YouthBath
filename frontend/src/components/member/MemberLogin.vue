@@ -10,7 +10,12 @@
                 <b-icon icon="person-lines-fill" style="color: #00bbff"></b-icon>로그인
               </h2>
               <br /><br />
-              <b-form-input id="id" placeholder="아이디(이메일)" style="height: 50px">
+              <b-form-input 
+                id="id" 
+                placeholder="아이디(이메일)" 
+                style="height: 50px"
+                v-model="id"
+              >
               </b-form-input>
               <br /><br />
               <b-form-input
@@ -18,6 +23,7 @@
                 placeholder="비밀번호"
                 type="password"
                 style="height: 50px"
+                v-model="pw"
               >
               </b-form-input>
               <br /><br />
@@ -38,12 +44,42 @@
 </template>
 
 <script>
+import http from '@/api/http';
+import parser from '@/api/lib/responseParser';
+
 export default {
   name: "MemberLogin",
   components: {},
   data() {
-    return {};
+    return {
+      id:'',
+      pw:''
+    };
   },
+  methods:{
+    submit(){
+      const data = {
+        id:this.id,
+        password:this.pw
+      };
+
+      http.post("http://localhost:9999/user/login",JSON.stringify(data))
+      .then(function(response){
+        let responseData = parser.successParser(response);//로그인 성공에 대한 결과를 받아옴
+        let accessToken = responseData.response.accessToken;//accessToken을 가져옴
+
+        //일단은 로컬스토리지에 저장
+        localStorage.setItem("accessToken",accessToken);
+        
+        location.href="/";
+      })
+      .catch(function(response){
+        console.dir(response);
+        let responseData = parser.failureParser(response);
+        alert(responseData.error.message);//에러메세지를 alert
+      })
+    }
+  }
 };
 </script>
 
