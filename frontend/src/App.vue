@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import HeaderNav from "@/components/HeaderNav";
-import FooterNav from "@/components/FooterNav";
+import HeaderNav from "@/components/layout/HeaderNav";
+import FooterNav from "@/components/layout/FooterNav";
 
 export default {
   name: "App",
@@ -19,4 +19,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+}
+</style>

@@ -7,10 +7,10 @@
           <b-card class="text-center mt-3" style="max-width: 40rem">
             <b-form class="m-2">
               <h2 class="underline-steelblue" style="color:#00bbff; bolder;">
-                <b-icon icon="person-lines-fill" style="color: #00bbff"></b-icon>내정보 조회
+                <b-icon icon="person-lines-fill" style="color: #00bbff"></b-icon>회원가입
               </h2>
               <br /><br />
-              <!-- 비밀번호 확인 후 이동 필요 -->
+              <!-- 검증(이메일 형식, 중복확인, 인증번호) 필요 -->
               <b-form-input
                 id="id"
                 v-model="id"
