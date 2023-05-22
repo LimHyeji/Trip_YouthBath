@@ -1,23 +1,16 @@
 package com.ssafy.enjoytrip.member.controller;
 
-import com.ssafy.enjoytrip.member.model.dto.MemberInfoDto;
-import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
-import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
-import com.ssafy.enjoytrip.member.model.dto.SecondaryAuthenticationDto;
+import com.ssafy.enjoytrip.member.model.dto.*;
 import com.ssafy.enjoytrip.member.model.service.MemberService;
-import com.ssafy.enjoytrip.member.model.vo.MemberVO;
-import com.ssafy.enjoytrip.member.util.InfoCheckException;
-import com.ssafy.enjoytrip.member.util.JoinException;
-import com.ssafy.enjoytrip.member.util.LoginException;
+import com.ssafy.enjoytrip.member.model.service.MemberServiceImpl;
+import com.ssafy.enjoytrip.member.util.*;
 import com.ssafy.enjoytrip.util.dto.Token;
-import com.ssafy.enjoytrip.util.jwt.JWTException;
 import com.ssafy.enjoytrip.util.jwt.JWTProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,14 +19,14 @@ import static com.ssafy.enjoytrip.util.ApiUtils.*;
 
 @RestController
 @RequestMapping(value="/user"
-//        ,consumes = MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE
+//        ,consumes = MediaType.APPLICATION_JSON_VALUE,produces= MediaType.APPLICATION_JSON_VALUE
 )
-@CrossOrigin(origins="http://localhost:8080",allowCredentials = "true",allowedHeaders = "*")
+@CrossOrigin(origins="http://localhost:8080",methods={RequestMethod.OPTIONS,RequestMethod.GET,RequestMethod.POST},allowCredentials = "true",allowedHeaders = "*")
 public class MemberController {
     private Logger log = LoggerFactory.getLogger(MemberController.class);
     private final MemberService memberService;
     private final JWTProvider jwtProvider;
-    public MemberController(MemberService memberService,JWTProvider jwtProvider){
+    public MemberController(MemberService memberService, JWTProvider jwtProvider){
         this.memberService = memberService;
         this.jwtProvider=jwtProvider;
     }
@@ -58,7 +51,8 @@ public class MemberController {
      * */
     @GetMapping
     public ResponseEntity<ApiResult<MemberInfoDto>> getInfo(HttpServletRequest request) throws InfoCheckException {
-        String accessToken = (String)(request.getAttribute("accessToken"));
+//        String accessToken = (String)(request.getAttribute("accessToken"));
+        String accessToken = request.getHeader("Authorization").split(" ")[1];
         return success(memberService.getInfo(accessToken),HttpStatus.OK);
     }
 
@@ -69,10 +63,27 @@ public class MemberController {
     public ResponseEntity<ApiResult<Boolean>> secondaryAuthentication(
             HttpServletRequest request,
             @RequestBody SecondaryAuthenticationDto dto) throws InfoCheckException{
-        String token = (String)request.getAttribute("accessToken");
+//        String token = (String)request.getAttribute("accessToken");
+        String token = request.getHeader("Authorization").split(" ")[1];
         System.out.println("token = " + token);
         boolean result = memberService.secondaryAuthentication(token,dto);
         return success(result,HttpStatus.OK);
     }
 
+    @PostMapping("/update")
+    public ResponseEntity<ApiResult<MemberInfoDto>> updateMember(
+            HttpServletRequest request,
+            @RequestBody MemberUpdateDto dto) throws UpdateException{
+        String token = request.getHeader("Authorization").split(" ")[1];
+
+        return success(memberService.updateMember(token,dto),HttpStatus.OK);
+    }
+
+    @PostMapping("/delete")
+    public ResponseEntity<ApiResult<Boolean>> deleteMember(
+            HttpServletRequest request) throws DeleteException {
+        String token = request.getHeader("Authorization").split(" ")[1];
+
+        return success(memberService.deleteMember(token),HttpStatus.OK);
+    }
 }

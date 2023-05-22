@@ -1,8 +1,6 @@
 package com.ssafy.enjoytrip.member.controller;
 
-import com.ssafy.enjoytrip.member.util.InfoCheckException;
-import com.ssafy.enjoytrip.member.util.JoinException;
-import com.ssafy.enjoytrip.member.util.LoginException;
+import com.ssafy.enjoytrip.member.util.*;
 import com.ssafy.enjoytrip.util.ApiUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +11,11 @@ import static com.ssafy.enjoytrip.util.ApiUtils.*;
 
 @RestControllerAdvice
 public class MemberExceptionController {
-    @ExceptionHandler({JoinException.class, LoginException.class, InfoCheckException.class})
-    public ResponseEntity<ApiResult<?>> joinExceptionHandler(JoinException joinException){
-        return error(joinException.getMessage(), HttpStatus.BAD_REQUEST);
+    @ExceptionHandler(
+            {JoinException.class, LoginException.class, DeleteException.class,
+                    InfoCheckException.class, UpdateException.class})
+    public ResponseEntity<ApiResult<?>> joinExceptionHandler(Exception exception){
+        return error(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)

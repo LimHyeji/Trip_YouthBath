@@ -52,8 +52,8 @@ export default {
   components: {},
   data() {
     return {
-      id:'a@gmail.com',
-      pw:'Birthdayis1203!'
+      id:'aa@gmail.com',
+      pw:'Abcdefg123!'
     };
   },
   methods:{
