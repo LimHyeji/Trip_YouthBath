@@ -24,6 +24,8 @@ CREATE TABLE membersec
 (
     `id`   VARCHAR(50)  NOT NULL,
     `salt` VARCHAR(300) NOT NULL,
+    `try_count` INT DEFAULT 0,
+    `blocked_time` DATETIME,
     INDEX  `id_idx` (`id` ASC) VISIBLE,
     CONSTRAINT `id`
         FOREIGN KEY (`id`)
