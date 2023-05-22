@@ -47,7 +47,7 @@
 
 <script>
 import {mapState,mapMutations } from 'vuex';
-
+import store from '@/store/index';
 export default {
   name: "HeaderNav",
   data() {
@@ -64,6 +64,7 @@ export default {
       // 로컬 스토리지의 토큰을 제거하고, 상태를 초기화합니다.
       localStorage.removeItem('accessToken');
       this.clearUser();
+      store.commit('setUser',null);
       alert("로그아웃 되었습니다.");
       location.href="/";
     }
