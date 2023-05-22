@@ -11,11 +11,12 @@ import com.ssafy.enjoytrip.member.util.LoginException;
 import com.ssafy.enjoytrip.util.encrypt.OpenCrypt;
 import com.ssafy.enjoytrip.util.dto.Token;
 import com.ssafy.enjoytrip.util.jwt.JWTProvider;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -88,17 +89,28 @@ public class MemberService {
     public Token login(MemberLoginDto dto) throws LoginException {
         //유저가 존재하는지 확인, 없으면 exception throw
         MemberVO member = memberRepository.findById(dto.getId()).orElseThrow(()->new LoginException("유저가 존재하지 않습니다."));
-
+        MemberSecVO memberSec = member.getMemberSec();
+        //유저의 blocked time을 검사. 지나지 않았으면 exception throw
+        if(memberSec.getBlocked_time()!= null && memberSec.getBlocked_time().compareTo(LocalDateTime.now())>0){
+            String format = memberSec.getBlocked_time().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).concat(" 까지 로그인이 불가능합니다.");
+            throw new LoginException(format);
+        }
         try {
-            String salt = member.getMemberSec().getSalt();//해당 유저의 salt값 가져오기
+            String salt = memberSec.getSalt();//해당 유저의 salt값 가져오기
             String hashPw = OpenCrypt.getSHA256(dto.getPassword(), salt);//해당 salt로 입력한 password 해싱
 
             if(member.getPassword().equals(hashPw)){//일치하면 로그인 성공
+                //memberSec에서 로그인 횟수에 대한 정보를 초기화
+                memberSec.loginSuccess();
+                memberRepository.save(member);
+
                 //토큰 발급
                 String accessToken = jwtProvider.createToken(member);
                 return new Token(accessToken);
             }
-            else{
+            else{//로그인 실패 로직 추가
+                memberSec.updateTryCount();
+                memberRepository.save(member);
                 throw new LoginException("회원 정보가 일치하지 않습니다.");
             }
         } catch(LoginException loginException){
