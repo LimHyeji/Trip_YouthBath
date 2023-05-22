@@ -35,7 +35,6 @@ public class JWTProvider {
                 .claim("name",member.getName())
                 .signWith(SignatureAlgorithm.HS256,SECRET_KEY.getBytes())
                 .compact();
-        System.out.println("token = " + token);
         return encrypt.encrypt(token);
     }
 

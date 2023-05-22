@@ -52,8 +52,8 @@ export default {
   components: {},
   data() {
     return {
-      id:'',
-      pw:''
+      id:'a@gmail.com',
+      pw:'Birthdayis1203!'
     };
   },
   methods:{
@@ -70,7 +70,6 @@ export default {
 
         //일단은 로컬스토리지에 저장
         localStorage.setItem("accessToken",accessToken);
-        
         location.href="/";
       })
       .catch(function(response){

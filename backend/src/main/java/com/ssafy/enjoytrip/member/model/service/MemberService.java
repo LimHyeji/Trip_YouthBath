@@ -1,15 +1,19 @@
 package com.ssafy.enjoytrip.member.model.service;
 
+import com.ssafy.enjoytrip.member.model.dto.MemberInfoDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
+import com.ssafy.enjoytrip.member.model.dto.SecondaryAuthenticationDto;
 import com.ssafy.enjoytrip.member.model.repository.MemberRepository;
 import com.ssafy.enjoytrip.member.model.repository.MemberSecRepository;
 import com.ssafy.enjoytrip.member.model.vo.MemberSecVO;
 import com.ssafy.enjoytrip.member.model.vo.MemberVO;
+import com.ssafy.enjoytrip.member.util.InfoCheckException;
 import com.ssafy.enjoytrip.member.util.JoinException;
 import com.ssafy.enjoytrip.member.util.LoginException;
 import com.ssafy.enjoytrip.util.encrypt.OpenCrypt;
 import com.ssafy.enjoytrip.util.dto.Token;
+import com.ssafy.enjoytrip.util.jwt.JWTException;
 import com.ssafy.enjoytrip.util.jwt.JWTProvider;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -117,6 +121,30 @@ public class MemberService {
             throw loginException;
         } catch(Exception e){
             throw new LoginException("로그인 오류");
+        }
+    }
+
+    public MemberInfoDto getInfo(String token) throws InfoCheckException {
+        try{
+            MemberVO memberVO = jwtProvider.parseInfo(token);
+            return new MemberInfoDto(memberVO.getId(),memberVO.getName());
+        }catch(JWTException e){
+            throw new InfoCheckException(e.getMessage());
+        }
+    }
+
+    public boolean secondaryAuthentication(String token, SecondaryAuthenticationDto dto) throws InfoCheckException {
+        try {
+            //토큰주인의 id
+            String id = jwtProvider.parseInfo(token).getId();
+
+            //id에 맞는 정보를 조회
+            MemberVO member = memberRepository.findById(id).orElseThrow(()->new InfoCheckException("사용자가 존재하지 않습니다."));
+
+            //토큰의 정보에 저장된 비밀번호와 DTO로 들어온 비밀번호가 일치하면 true, 아니면 false를 리턴
+            return member.getPassword().equals(dto.getPassword());
+        }catch (JWTException e) {
+            throw new RuntimeException(e);
         }
     }
 }

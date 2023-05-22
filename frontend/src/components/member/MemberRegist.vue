@@ -170,7 +170,7 @@ export default {
     regist() {
       if (this.idValid && this.pwValid && this.pwCheckValid && this.nameValid) {
         //api 호출
-        http.post("http://localhost:9999/user/regist",JSON.stringify({
+        http.post("/user/regist",JSON.stringify({
           id:this.id,
           password:this.pw,
           passwordCheck:this.pwCheck,

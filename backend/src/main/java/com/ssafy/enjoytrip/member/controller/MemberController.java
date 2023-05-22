@@ -3,12 +3,14 @@ package com.ssafy.enjoytrip.member.controller;
 import com.ssafy.enjoytrip.member.model.dto.MemberInfoDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberJoinDto;
 import com.ssafy.enjoytrip.member.model.dto.MemberLoginDto;
+import com.ssafy.enjoytrip.member.model.dto.SecondaryAuthenticationDto;
 import com.ssafy.enjoytrip.member.model.service.MemberService;
 import com.ssafy.enjoytrip.member.model.vo.MemberVO;
 import com.ssafy.enjoytrip.member.util.InfoCheckException;
 import com.ssafy.enjoytrip.member.util.JoinException;
 import com.ssafy.enjoytrip.member.util.LoginException;
 import com.ssafy.enjoytrip.util.dto.Token;
+import com.ssafy.enjoytrip.util.jwt.JWTException;
 import com.ssafy.enjoytrip.util.jwt.JWTProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +19,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 import static com.ssafy.enjoytrip.util.ApiUtils.*;
 
@@ -44,17 +48,31 @@ public class MemberController {
     public ResponseEntity<ApiResult<Token>> login(@RequestBody MemberLoginDto dto) throws LoginException {
         return success(memberService.login(dto),HttpStatus.OK);
     }
-    
-    //이부분은 좀 더 손볼 필요가있음
-    @GetMapping
-    public ResponseEntity<ApiResult<MemberInfoDto>> getInfo(@RequestHeader("Authorization") String authorization) throws InfoCheckException{
-        try {
-            String accessToken = authorization.split(" ")[1];
-            MemberVO memberVO = jwtProvider.parseInfo(accessToken);
 
-            return success(new MemberInfoDto(memberVO.getId(),memberVO.getName()),HttpStatus.OK);
-        }catch(Exception e){
-            throw new InfoCheckException("오류");
-        }
+    /**
+     * 여기서부터 인증이 필요한 메서드들
+     * interceptor에서 jwt를 확인 및 유효성 검사
+     * 확인되면 복호화되지않은 jwt토큰을 request.setAttribute로 넣어서 컨트롤러로 전달
+     *
+     * 컨트롤러에서는 request.getAttribute로 accessToken을 받아오면됨
+     * */
+    @GetMapping
+    public ResponseEntity<ApiResult<MemberInfoDto>> getInfo(HttpServletRequest request) throws InfoCheckException {
+        String accessToken = (String)(request.getAttribute("accessToken"));
+        return success(memberService.getInfo(accessToken),HttpStatus.OK);
     }
+
+    /**
+     * 2차인증을 하기 위한 메서드
+     */
+    @PostMapping("/secondary")
+    public ResponseEntity<ApiResult<Boolean>> secondaryAuthentication(
+            HttpServletRequest request,
+            @RequestBody SecondaryAuthenticationDto dto) throws InfoCheckException{
+        String token = (String)request.getAttribute("accessToken");
+        System.out.println("token = " + token);
+        boolean result = memberService.secondaryAuthentication(token,dto);
+        return success(result,HttpStatus.OK);
+    }
+
 }
