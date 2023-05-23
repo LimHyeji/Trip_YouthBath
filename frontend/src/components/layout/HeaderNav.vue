@@ -2,7 +2,9 @@
   <div>
     <b-navbar toggleable="lg" type="dark" style="background-color: #00bbff">
       <b-navbar-brand href="#">
-        <b-img :src="require('@/assets/logo.png')" fluid alt="Fluid image"></b-img>
+        <router-link :to="{ name: 'main' }">
+        <b-img :src="require('@/assets/logo.png')" id="logo" alt="logo"></b-img>
+        </router-link>
       </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>

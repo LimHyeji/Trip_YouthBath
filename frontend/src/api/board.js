@@ -1,6 +1,6 @@
-import { apiInstance } from "./index.js";
+import { apiToCheckInstance } from "./index.js";
 
-const api = apiInstance();
+const api = apiToCheckInstance();
 
 function writeArticle(article, success, fail) {
     api.post(`/board`, JSON.stringify(article)).then(success).catch(fail);

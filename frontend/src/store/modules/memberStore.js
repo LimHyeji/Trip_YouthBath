@@ -40,7 +40,6 @@ const memberStore = {
                 ({ data }) => {
                     if (data.message === "success") {
                         let accessToken = data["access-token"];
-                        //리프레쉬 토큰 사용 미정
                         commit("SET_IS_LOGIN", true);
                         commit("SET_IS_LOGIN_ERROR", false);
                         commit("SET_IS_VALID_TOKEN", true);
@@ -57,6 +56,7 @@ const memberStore = {
             );
         },
         //findById 이용,,,, getMemberInfo
+        //사용불가토큰 처리
     }
 }
 
