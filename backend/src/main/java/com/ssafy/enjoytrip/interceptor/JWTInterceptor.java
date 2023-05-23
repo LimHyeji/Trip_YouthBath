@@ -24,6 +24,11 @@ public class JWTInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        if(request.getMethod().equals("OPTIONS")){
+            return true;//CORS 체크하러 오는건 통과
+        }
+        
+        
         String authorization = request.getHeader("Authorization");
         if(authorization!=null && authorization.startsWith("Bearer") && authorization.split(" ").length == 2){
             String[] split = authorization.split(" ");
