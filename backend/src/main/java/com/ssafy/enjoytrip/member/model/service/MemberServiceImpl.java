@@ -152,6 +152,7 @@ public class MemberServiceImpl implements MemberService{
         }
     }
 
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public MemberInfoDto updateMember(String token, MemberUpdateDto dto) throws UpdateException {
         try{
             //토큰 주인의 id
