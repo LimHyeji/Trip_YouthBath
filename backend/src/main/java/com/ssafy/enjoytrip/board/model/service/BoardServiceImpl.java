@@ -96,6 +96,9 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public BoardDto modify(String token, BoardDto dto) throws ModifyException {
         try {
+            if(dto.getArticleNo()==null){
+                throw new ModifyException("수정 오류");
+            }
             //jwt에서 정보 파싱
             MemberVO info = jwtProvider.parseInfo(token);
 
