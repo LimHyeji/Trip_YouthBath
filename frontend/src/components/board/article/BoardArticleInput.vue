@@ -103,15 +103,16 @@ export default {
         },
         modifyArticle(){
             let param={
-                articleNo:this.article.articleNo,
+                articleNo:this.$route.params.articleNo,
                 title:this.article.title,
                 content:this.article.content,
             };
+            console.log(param);
             modifyArticle(
                 param,
                 ({data})=>{
                     let msg="글 수정이 제대로 되지 않았습니다";
-                    if(data==="success"){
+                    if(data.success){
                         msg="수정이 완료되었습니다";
                     }
                     alert(msg);

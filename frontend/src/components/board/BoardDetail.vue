@@ -74,8 +74,7 @@ export default {
         name:"boardmodify",
         params:{articleNo:this.article.articleNo},
     });
-       this.$router.push({ path: `/board/modify/${this.article.articleNo}` });//modfy 페이지로 이동
-    },
+   },
     deleteArticle(){
         if(confirm("글을 삭제하시겠습니까?")){
             this.$router.replace({
