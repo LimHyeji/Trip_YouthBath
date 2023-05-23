@@ -61,7 +61,7 @@ export default {
     ...mapState(['user'])
   },
   methods:{
-    ...mapMutations(['clearUser']),
+    ...mapMutations(['clearUser','clearAccessToken']),
     logout() {
       // 로그아웃 로직을 구현하세요.
       // 로컬 스토리지의 토큰을 제거하고, 상태를 초기화합니다.

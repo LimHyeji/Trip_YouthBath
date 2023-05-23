@@ -36,14 +36,14 @@
               <div v-else>
                 <!-- 조회부분 -->
                 <div v-if="!updateMode">
-                  <span>아이디 : {{user.response.id}}</span><br>
-                  <span>이름 : {{user.response.name}}</span><br>
+                  <span>아이디 : {{user.id}}</span><br>
+                  <span>이름 : {{user.name}}</span><br>
                   <button v-on:click="toggleUpdateMode">수정</button><button v-on:click="deleteMember">삭제</button>
                 </div>
                 <!-- 수정부분 -->
                 <div v-else>
-                  <span>아이디 : {{user.response.id}}</span><br>
-                  이름 : <input type="text" id="nameInput" v-bind:value="user.response.name"><br>
+                  <span>아이디 : {{user.id}}</span><br>
+                  이름 : <input type="text" id="nameInput" v-bind:value="user.name"><br>
                   <button v-on:click="updateMember">수정하기</button><button v-on:click="toggleUpdateMode">취소</button>
                 </div>
               </div>
@@ -72,7 +72,7 @@
            };
       },
       computed:{
-        ...mapState(['user'])
+        ...mapState(['user','accessToken'])
       },
       methods:{
           ...mapMutations(['clearUser']),
@@ -80,7 +80,8 @@
             let data = {
               password : this.pw
             };
-            let accessToken = localStorage.getItem("accessToken");
+            console.log(data)
+            let accessToken = this.accessToken;
             console.log(accessToken);
             let result = await http.post(
               "http://localhost:9999/user/secondary",
@@ -101,6 +102,7 @@
             if(result){
               alert("인증되었습니다.");
               this.isAuth = true;
+              console.log(this.isAuth);
             }
             else{
               alert("비밀번호를 확인해주세요")
@@ -111,7 +113,7 @@
           },
           updateMember(){
             //업데이트 될 데이터 모으기
-            let token = localStorage.getItem("accessToken");
+            let token = this.accessToken;
             const data = {
               name : document.querySelector("#nameInput").value
             }
@@ -122,7 +124,7 @@
               }
             }).then(response=>{
               let responseData = parser.successParser(response);
-              store.commit("setUser",responseData);
+              store.commit("setUser",responseData.response);
               alert("수정되었습니다.");
               this.toggleUpdateMode();
             }).catch(response=>{
@@ -133,7 +135,7 @@
           deleteMember(){
             let conf = confirm("삭제하시겠습니까?");
             if(conf){
-              let token = localStorage.getItem("accessToken");
+              let token = this.accessToken;
               //삭제로직
               http.post("http://localhost:9999/user/delete",{},{
                 withCredentials:true,
