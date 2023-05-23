@@ -1,19 +1,19 @@
 <template>
   <div>
     <trip-card />
-    <kakao-map />
+    <trip-search />
   </div>
 </template>
 
 <script>
 import TripCard from "@/components/trip/TripCard.vue";
-import KakaoMap from "@/components/trip/KakaoMap.vue";
+import TripSearch from "@/components/trip/TripSearch.vue";
 
 export default {
   name: "AppMain",
   components: {
     TripCard,
-    KakaoMap,
+    TripSearch,
   },
   data() {
     return {};
