@@ -2,6 +2,7 @@ package com.ssafy.enjoytrip.trip.controller;
 
 import com.ssafy.enjoytrip.member.controller.MemberController;
 import com.ssafy.enjoytrip.member.util.InfoCheckException;
+import com.ssafy.enjoytrip.trip.model.dto.TripGugunDto;
 import com.ssafy.enjoytrip.trip.model.dto.TripSidoDto;
 import com.ssafy.enjoytrip.trip.model.service.TripService;
 import com.ssafy.enjoytrip.trip.model.vo.TripSidoVO;
@@ -39,6 +40,10 @@ public class TripController {
         return success(tripService.getSidoList(token), HttpStatus.OK);
     }
 
-//    @GetMapping(value="/gugun/{sidoCode}")
-//    public ResponseEntity
+    @GetMapping(value="/gugun/{sidoCode}")
+    public ResponseEntity<ApiUtils.ApiResult<TripGugunDto>> getGugunList( @RequestHeader("Authorization") String authorization, @PathVariable(required = true,name="sidoCode")int sido_code) throws InfoCheckException{
+        String token=authorization.split(" ")[1];
+        return success(tripService.getGugunList(token,sido_code),HttpStatus.OK);
+    }
 }
+

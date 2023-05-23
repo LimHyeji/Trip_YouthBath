@@ -11,35 +11,35 @@ public class TripSidoVO {
 
     @Id
     @Column(name="sido_code")
-    private int sido_code;
+    private int sidoCode;
 
     @Column(name="sido_name")
-    private String sido_name;
+    private String sidoName;
 
 
     public TripSidoVO() {
     }
 
-    public TripSidoVO( int sido_code, String sido_name) {
-        setSido_code(sido_code);
-        setSido_Name(sido_name);
+    public TripSidoVO( int sidoCode, String sidoName) {
+        setSidoCode(sidoCode);
+        setSidoName(sidoName);
     }
 
-    public void setSido_code(int sido_code){
-        if(sido_code>=0){//확인 필요
-            this.sido_code=sido_code;
+    public void setSidoCode(int sidoCode){
+        if(sidoCode>=0){//확인 필요
+            this.sidoCode=sidoCode;
         }
     }
-    public int getSido_code(){
-        return sido_code;
+    public int getSidoCode(){
+        return sidoCode;
     }
 
-    public void setSido_Name(String sido_name){
-        if(sido_name!=null){
-            this.sido_name=sido_name;
+    public void setSidoName(String sidoName){
+        if(sidoName!=null){
+            this.sidoName=sidoName;
         }
     }
-    public String getSido_name(){
-        return sido_name;
+    public String getSidoName(){
+        return sidoName;
     }
 }

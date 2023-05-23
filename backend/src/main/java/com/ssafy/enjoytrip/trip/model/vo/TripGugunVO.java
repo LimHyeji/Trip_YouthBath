@@ -11,48 +11,48 @@ public class TripGugunVO {
 
     @Id
     @Column(name="gugun_code")
-    private int gugun_code;
+    private int gugunCode;
 
     @Column(name="gugun_name")
-    private String gugun_name;
+    private String gugunName;
 
     @Column(name="sido_code")
-    private int sido_code;
+    private int sidoCode;
 
     public TripGugunVO() {
     }
-    public TripGugunVO(int gugun_code, String gugun_name, int sido_code) {
-        setGugun_code(gugun_code);
-        setGugun_name(gugun_name);
-        setSido_code(sido_code);
+    public TripGugunVO(int gugunCode, String gugunName, int sidoCode) {
+        setGugunCode(gugunCode);
+        setGugunName(gugunName);
+        setSidoCode(sidoCode);
     }
 
-    public void setGugun_code(int gugun_code) {
-        if(gugun_code>=0) {//확인 필요
-            this.gugun_code = gugun_code;
+    public void setGugunCode(int gugunCode) {
+        if(gugunCode>=0) {//확인 필요
+            this.gugunCode = gugunCode;
         }
     }
-    public int getGugun_code() {
-        return gugun_code;
+    public int getGugunCode() {
+        return gugunCode;
     }
 
-    public void setGugun_name(String gugun_name) {
-        if(gugun_name!=null) {
-            this.gugun_name = gugun_name;
+    public void setGugunName(String gugunName) {
+        if(gugunName!=null) {
+            this.gugunName = gugunName;
         }
     }
-    public String getGugun_name() {
-        return gugun_name;
+    public String getGugunName() {
+        return gugunName;
     }
 
 
-    public void setSido_code(int sido_code) {
-        if(sido_code>=0) {//확인 필요
-            this.sido_code = sido_code;
+    public void setSidoCode(int sidoCode) {
+        if(sidoCode>=0) {//확인 필요
+            this.sidoCode = sidoCode;
         }
     }
-    public int getSido_code() {
-        return sido_code;
+    public int getSidoCode() {
+        return sidoCode;
     }
 
 }
