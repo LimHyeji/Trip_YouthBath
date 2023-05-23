@@ -144,6 +144,9 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public BoardDto detail(Long articleNo) throws InfoCheckException {
-        return convertToDto(boardRepository.findById(articleNo).orElseThrow(()->new InfoCheckException("해당하는 게시물이 없어요")));
+        BoardVO result = boardRepository.findById(articleNo).orElseThrow(() -> new InfoCheckException("해당하는 게시물이 없어요"));
+        result.updateHit();
+        boardRepository.save(result);
+        return convertToDto(result);
     }
 }

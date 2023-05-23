@@ -19,6 +19,7 @@ import static com.ssafy.enjoytrip.util.ApiUtils.*;
 
 @RestController
 @RequestMapping("/board")
+@CrossOrigin(origins="http://localhost:8080",methods={RequestMethod.OPTIONS,RequestMethod.GET,RequestMethod.POST},allowCredentials = "true",allowedHeaders = "*")
 public class BoardController {
     private final BoardService boardService;
 
@@ -37,7 +38,7 @@ public class BoardController {
 
     @GetMapping
     public ResponseEntity<ApiResult<BoardListDto>> findAllWithPage(
-            @RequestParam(required = false,defaultValue = "0",name="pageno") int pageno){
+            @RequestParam(required = false,defaultValue = "0",name="pageNo") int pageno){
         System.out.println("pageno = " + pageno);
         return success(boardService.getList(pageno),HttpStatus.OK);
     }
@@ -58,7 +59,7 @@ public class BoardController {
             ) throws DeleteException {
         String token = authorization.split(" ")[1];
         boardService.delete(token,dto);
-        return success("성공했습니다.",HttpStatus.OK);
+        return success("삭제 완료.",HttpStatus.OK);
     }
 
     @GetMapping("/{articleNo}")
