@@ -104,7 +104,8 @@ const router = new VueRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  const accessToken = localStorage.getItem('accessToken');
+  // const accessToken = localStorage.getItem('accessToken');
+  const accessToken = store.state.accessToken;
   
   // /member/login 또는 /member/regist 페이지로 이동하는 경우 항상 허용합니다.
   if (to.path === '/member/login' || to.path === '/member/regist') {
@@ -115,7 +116,7 @@ router.beforeEach(async (to, from, next) => {
     if (accessToken) {
       let info = await isValidToken(accessToken);
       if(info){
-        store.commit("setUser",info);
+        store.commit("setUser",info.response);
         next();
       }
       else{

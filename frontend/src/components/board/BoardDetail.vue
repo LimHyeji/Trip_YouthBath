@@ -13,13 +13,13 @@
                 <b-col class="text-left">
                     <b-button style="color: #00bbff" @click="moveList">목록</b-button>
                 </b-col>
-                <b-col class="text-right" v-if="user.userid === article.writer">
+                <b-col class="text-right" v-if="user.id === article.writer">
                     <b-button style="color: #00bbff" size="sm" @click="moveModifyArticle" class="mr-2">글수정</b-button>
                     <b-button style="color: #00bbff" size="sm" @click="deleteArticle">글삭제</b-button>
                 </b-col>
                 <b-card
                 :header-html="`<h3>${article.articleNo}.
-                ${article.title} [${article.hit}]</h3><div><h6>${article.writer}</div><div>${article.regtime}</h6></div>`"
+                ${article.title} [${article.hit}]</h3><div><h6>${article.writer}</div><div>${article.regTime}</h6></div>`"
                 class="mb-2"
                 border-variant="dark"
                 no-body
@@ -60,7 +60,7 @@ export default {
     detailArticle(
         param,
         ({data})=>{
-            this.article=data;
+            this.article=data.response;
         },
         (error)=>{
             console.log(error);
@@ -74,7 +74,7 @@ export default {
         name:"boardmodify",
         params:{articleNo:this.article.articleNo},
     });
-       this.$router.push({ path: `/board/modify/${this.article.articleno}` });//modfy 페이지로 이동
+       this.$router.push({ path: `/board/modify/${this.article.articleNo}` });//modfy 페이지로 이동
     },
     deleteArticle(){
         if(confirm("글을 삭제하시겠습니까?")){

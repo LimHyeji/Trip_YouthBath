@@ -8,7 +8,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state:{
-    user:null,
+    user: null,
+    accessToken:null
   },
   modules: {
     memberStore,
@@ -26,5 +27,11 @@ export default new Vuex.Store({
     clearUser(state) {
       state.user = null;
     },
+    setAccessToken(state, accessToken) {
+      state.accessToken = accessToken;
+    },
+    clearAccessToken(state) {
+      state.accessToken = null;
+    }
   },
 });

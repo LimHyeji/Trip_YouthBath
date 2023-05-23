@@ -46,7 +46,7 @@
 <script>
 import http from '@/api/http';
 import parser from '@/api/lib/responseParser';
-
+import store from '@/store/index';
 export default {
   name: "MemberLogin",
   components: {},
@@ -69,7 +69,8 @@ export default {
         let accessToken = responseData.response.accessToken;//accessToken을 가져옴
 
         //일단은 로컬스토리지에 저장
-        localStorage.setItem("accessToken",accessToken);
+        // localStorage.setItem("accessToken",accessToken);
+        store.commit("setAccessToken",accessToken);
         location.href="/";
       })
       .catch(function(response){

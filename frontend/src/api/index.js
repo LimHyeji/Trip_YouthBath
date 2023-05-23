@@ -15,9 +15,10 @@ function apiInstance() {
 function apiToCheckInstance() {
   const instance = axios.create({
     baseURL: process.env.VUE_APP_API_BASE_URL,
+    withCredentials:true,
     headers: {
       "Content-Type": "application/json;charset=utf-8",
-      Authorization:store.state.access-token,
+      'Authorization':`Bearer ${store.state.accessToken}`,
     },
   });
   return instance;
@@ -27,9 +28,10 @@ function apiToCheckInstance() {
   function tripInstance() {
     const instance = axios.create({
       baseURL: process.env.VUE_APP_TRIP_DEAL_URL,
+      withCredentials:true,
       headers: {
         "Content-Type": "application/json;charset=utf-8",
-        Authorization:store.state.access-token,
+        'Authorization':`Bearer ${store.state.accessToken}`,
       },
     });
     return instance;

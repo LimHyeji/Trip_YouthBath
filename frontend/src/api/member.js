@@ -1,7 +1,10 @@
-import { apiInstance, apiToCheckInstance } from "@/api/index.js";
+import {
+    apiInstance,
+    // apiToCheckInstance
+} from "@/api/index.js";
 
 const api = apiInstance();
-const apiToCheck = apiToCheckInstance();
+// const apiToCheck = apiToCheckInstance();
 
 async function regist(user, success, fail) {
     await api.post(`/user/regist`,

@@ -23,7 +23,7 @@
             <router-link :to="{ name: 'regist' }" class="m-2 link" v-if="!user">
               <b-icon icon="person-circle"></b-icon> 회원가입
             </router-link>
-            <b-nav-item href="#" v-if="user">{{user.response.name}}님 반갑습니다.</b-nav-item>
+            <b-nav-item href="#" v-if="user">{{user.name}}님 반갑습니다.</b-nav-item>
             <router-link :to="{ name: 'boardlist' }" class="m-2 link" v-if="user">
               <b-icon icon="people-fill"></b-icon>커뮤니티
             </router-link>
@@ -51,7 +51,6 @@
 
 <script>
 import {mapState,mapMutations } from 'vuex';
-import store from '@/store/index';
 export default {
   name: "HeaderNav",
   data() {
@@ -66,9 +65,8 @@ export default {
     logout() {
       // 로그아웃 로직을 구현하세요.
       // 로컬 스토리지의 토큰을 제거하고, 상태를 초기화합니다.
-      localStorage.removeItem('accessToken');
       this.clearUser();
-      store.commit('setUser',null);
+      this.clearAccessToken();
       alert("로그아웃 되었습니다.");
       location.href="/";
     }

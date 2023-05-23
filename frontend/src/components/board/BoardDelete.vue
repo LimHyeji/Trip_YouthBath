@@ -30,7 +30,7 @@ export default {
             param,
             ({data})=>{
                 let msg="글 삭제가 제대로 되지 않았습니다";
-                if(data==="success"){
+                if(data.success){
                     msg="글 삭제가 완료되었습니다";
                 }
                 alert(msg);

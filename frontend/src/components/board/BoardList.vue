@@ -10,7 +10,8 @@
                   </h2>
                   <br /><br />
                   <!-- -->
-                    <b-table striped hover :items="articles" :fields="fields" @row-clicked="detailArticle">
+                    <b-table striped hover :items="articles" 
+                    :fields="fields" @row-clicked="detailArticle">
                         <template #cell(title)="data">
                             <router-link :to="{ name: 'boarddetail', params: { articleNo: data.item.articleNo } }">
                             {{ data.item.title }}
@@ -28,7 +29,7 @@
 
 <script>
 import {listArticle} from "@/api/board";
-
+// import BoardListItem from "@/components/board/BoardListItem.vue"
 export default {
     name: 'BoardList',
     components: {},
@@ -44,17 +45,16 @@ export default {
              ],
         };
     },
-    created() {
+    mounted() {
         let param={
-            pageNo:1,
-            size:20,
+            pageNo:0,
             key:null,
             word:null,
         };
         listArticle(
             param,
             ({data})=>{
-                this.articles=data;
+                this.articles=data.response.articles;
             },
             (error)=>{
                 console.log(error);
