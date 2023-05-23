@@ -63,6 +63,38 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/board",
+    name: "board",
+    component: () => import(/* webpackChunkName: "board" */ "@/views/AppBoard"),
+    children: [
+      {
+        path: "write",
+        name: "boardwrite",
+        component: () => import(/* webpackChunkName: "board" */ "@/components/board/BoardWrite"),
+      },
+      {
+        path: "list",
+        name: "boardlist",
+        component: () => import(/* webpackChunkName: "board" */ "@/components/board/BoardList"),
+      },
+      {
+        path: "modify",
+        name: "boardmodify",
+        component: () => import(/* webpackChunkName: "board" */ "@/components/board/BoardModify"),
+      },
+      {
+        path: "delete/:articleNo",
+        name: "boarddelete",
+        component: () => import(/* webpackChunkName: "board" */ "@/components/board/BoardDelete"),
+      },
+      {
+        path: "detail/:articleNo",
+        name: "boarddetail",
+        component: () => import(/* webpackChunkName: "board" */ "@/components/board/BoardDetail"),
+      },
+    ],
+  },
 ];
 
 const router = new VueRouter({

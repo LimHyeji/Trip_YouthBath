@@ -102,7 +102,8 @@ export default {
       let regex = /^[\w._%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/;
       let isValid = regex.test(this.id);
 
-      if (this.id.length < 5) {
+
+      if (this.id.trim() === ""||this.id.length < 5) {
         this.idMsg = `아이디는 5자 이상이어야 합니다`;
         this.idValid = false;
       } else if (!isValid) {
@@ -137,7 +138,7 @@ export default {
 
       //나머지 조건에 부합하는지 판단
       let regex =
-        /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()-=_+`~[\]\\{}|;':",./<>?])(?!.*(.)\1\1\1)(?!.*(1234|1111))(?=.{10,})[A-Za-z\d!@#$%^&*()-=_+`~[\]\\{}|;':",./<>?]+$/;
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])(?!.*(\d)\1{3})(?!.*(\d+)(\d)\2{2})[A-Za-z\d@$!%*?&]{10,}$/;
       let isValid = regex.test(this.pw);
 
       if (!isValid) {

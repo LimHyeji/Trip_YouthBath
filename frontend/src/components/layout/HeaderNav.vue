@@ -2,7 +2,9 @@
   <div>
     <b-navbar toggleable="lg" type="dark" style="background-color: #00bbff">
       <b-navbar-brand href="#">
-        <b-img :src="require('@/assets/logo.png')" fluid alt="Fluid image"></b-img>
+        <router-link :to="{ name: 'main' }">
+        <b-img :src="require('@/assets/logo.png')" id="logo" alt="logo"></b-img>
+        </router-link>
       </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -22,7 +24,9 @@
               <b-icon icon="person-circle"></b-icon> 회원가입
             </router-link>
             <b-nav-item href="#" v-if="user">{{user.response.name}}님 반갑습니다.</b-nav-item>
-            <b-nav-item href="#" v-if="user">커뮤니티</b-nav-item>
+            <router-link :to="{ name: 'boardlist' }" class="m-2 link" v-if="user">
+              <b-icon icon="people-fill"></b-icon>커뮤니티
+            </router-link>
           </b-navbar-nav>
           <!-- 로그인 후에만 출력하도록 변경 예정 -->
           <b-nav-item-dropdown right v-if="user">
