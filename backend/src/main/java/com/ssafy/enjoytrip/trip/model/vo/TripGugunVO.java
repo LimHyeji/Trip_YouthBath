@@ -1,44 +1,58 @@
 package com.ssafy.enjoytrip.trip.model.vo;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity(name="gugun")
+@Table(name="gugun")
 public class TripGugunVO {
-    private int code;
-    private String name;
-    private int sidoCode;
+
+    @Id
+    @Column(name="gugun_code")
+    private int gugun_code;
+
+    @Column(name="gugun_name")
+    private String gugun_name;
+
+    @Column(name="sido_code")
+    private int sido_code;
 
     public TripGugunVO() {
     }
-    public TripGugunVO(int code, String name, int sidoCode) {
-        setCode(code);
-        setName(name);
-        setSidoCode(sidoCode);
+    public TripGugunVO(int gugun_code, String gugun_name, int sido_code) {
+        setGugun_code(gugun_code);
+        setGugun_name(gugun_name);
+        setSido_code(sido_code);
     }
 
-    public void setCode(int code) {
-        if(code>=0) {//확인 필요
-            this.code = code;
+    public void setGugun_code(int gugun_code) {
+        if(gugun_code>=0) {//확인 필요
+            this.gugun_code = gugun_code;
         }
     }
-    public int getCode() {
-        return code;
+    public int getGugun_code() {
+        return gugun_code;
     }
 
-    public void setName(String name) {
-        if(name!=null) {
-            this.name = name;
+    public void setGugun_name(String gugun_name) {
+        if(gugun_name!=null) {
+            this.gugun_name = gugun_name;
         }
     }
-    public String getName() {
-        return name;
+    public String getGugun_name() {
+        return gugun_name;
     }
 
 
-    public void setSidoCode(int sidoCode) {
-        if(sidoCode>=0) {//확인 필요
-            this.sidoCode = sidoCode;
+    public void setSido_code(int sido_code) {
+        if(sido_code>=0) {//확인 필요
+            this.sido_code = sido_code;
         }
     }
-    public int getSidoCode() {
-        return sidoCode;
+    public int getSido_code() {
+        return sido_code;
     }
 
 }
