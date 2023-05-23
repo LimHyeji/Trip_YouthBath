@@ -1,13 +1,15 @@
 package com.ssafy.enjoytrip.trip.model.service;
 
+import com.ssafy.enjoytrip.member.util.InfoCheckException;
+import com.ssafy.enjoytrip.trip.model.dto.TripSidoDto;
 import com.ssafy.enjoytrip.trip.model.repository.TripRepository;
+import com.ssafy.enjoytrip.trip.model.vo.TripSidoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
-public class TripService {
+import java.util.List;
 
-    @Autowired
-    TripRepository tripRepository;
+public interface TripService {
 
+    public TripSidoDto getSidoList(String token) throws InfoCheckException;
 }
