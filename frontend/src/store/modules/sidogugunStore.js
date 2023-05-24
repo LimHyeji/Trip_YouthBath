@@ -1,4 +1,4 @@
-import { sidoList, gugunList } from "@/api/trip.js";
+import { sidoList, gugunList } from "@/api/item.js";
 
 const sidogugunStore = {
   namespaced: true,
