@@ -7,7 +7,7 @@
 <script>
 import { mapState, mapActions, mapMutations } from "vuex";
 
-const itemStore = "itemStore";
+const sidogugunStore = "sidogugunStore";
 
 export default {
   name: "SelectSido",
@@ -17,15 +17,15 @@ export default {
     };
   },
   computed: {
-    ...mapState(itemStore, ["sidos"]),
+    ...mapState(sidogugunStore, ["sidos"]),
   },
   created() {
     this.CLEAR_SIDO_LIST();
     this.getSido();
   },
   methods: {
-    ...mapActions(itemStore, ["getSido"]),
-    ...mapMutations(itemStore, ["CLEAR_SIDO_LIST"]),
+    ...mapActions(sidogugunStore, ["getSido"]),
+    ...mapMutations(sidogugunStore, ["CLEAR_SIDO_LIST"]),
     changeSido() {
       this.$emit("select-sido", this.sidoCode);
     },

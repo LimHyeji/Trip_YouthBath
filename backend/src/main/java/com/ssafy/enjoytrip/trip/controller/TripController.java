@@ -1,5 +1,6 @@
 package com.ssafy.enjoytrip.trip.controller;
 
+import com.ssafy.enjoytrip.board.model.dto.BoardDeleteDto;
 import com.ssafy.enjoytrip.member.controller.MemberController;
 import com.ssafy.enjoytrip.member.util.InfoCheckException;
 import com.ssafy.enjoytrip.trip.model.dto.TripGugunDto;
@@ -35,15 +36,14 @@ public class TripController {
     }
 
     @GetMapping(value="/sido")
-    public ResponseEntity<ApiUtils.ApiResult<TripSidoDto>> getSidoList( @RequestHeader("Authorization") String authorization) throws InfoCheckException{
-        String token=authorization.split(" ")[1];
-        return success(tripService.getSidoList(token), HttpStatus.OK);
+    public ResponseEntity<ApiUtils.ApiResult<TripSidoDto>> getSidoList(){
+        return success(tripService.getSidoList(), HttpStatus.OK);
     }
 
     @GetMapping(value="/gugun/{sidoCode}")
-    public ResponseEntity<ApiUtils.ApiResult<TripGugunDto>> getGugunList( @RequestHeader("Authorization") String authorization, @PathVariable(required = true,name="sidoCode")int sido_code) throws InfoCheckException{
-        String token=authorization.split(" ")[1];
-        return success(tripService.getGugunList(token,sido_code),HttpStatus.OK);
+    public ResponseEntity<ApiUtils.ApiResult<TripGugunDto>> getGugunList(@PathVariable(required=true,name="sidoCode") int sidoCode){
+        System.out.println(sidoCode);
+        return success(tripService.getGugunList(sidoCode),HttpStatus.OK);
     }
 }
 
