@@ -13,11 +13,20 @@ public class XSSFilterWrapper extends HttpServletRequestWrapper {
     public XSSFilterWrapper(HttpServletRequest request) {
         super(request);
         try{
-            if(request.getMethod().equalsIgnoreCase("post") && (request.getContentType().equals("application/json"))
-                    || request.getContentType().equals("multipart/form-data")){
+            if("post".equalsIgnoreCase(request.getMethod())
+                    && ("application/json;charset=utf-8".equalsIgnoreCase(request.getContentType())
+                    || "multipart/form-data".equalsIgnoreCase(request.getContentType()))){
                 InputStream is = request.getInputStream();
+                ByteArrayOutputStream bao = new ByteArrayOutputStream();
 
-                this.rawData = xssFiltering(new String(is.readAllBytes())).getBytes();
+                for(int data = is.read();data!=-1;data = is.read()){
+                    bao.write(data);
+                }
+                String data = bao.toString();
+                this.rawData = xssFiltering(data).getBytes();
+            }
+            else{
+                System.out.println("else");
             }
         }catch(IOException e){
             e.printStackTrace();
