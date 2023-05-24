@@ -40,9 +40,7 @@ const sidogugunStore = {
       gugunList(
        sidoCode,
         ({ data }) => {
-          console.log(data);
           commit("SET_GUGUN_LIST", data);
-          console.log(data);
         },
         (error) => {
           console.log(error);

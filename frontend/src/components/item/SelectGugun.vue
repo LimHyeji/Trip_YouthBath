@@ -24,9 +24,8 @@ export default {
       this.CLEAR_GUGUN_LIST();
       this.gugunCode = null;
       if (this.sidoCode) {
-        //console.log(this.sidoCode);
-        this.getGugun(this.sidoCode);}
-
+        this.getGugun(this.sidoCode);
+      }
     },
   },
   computed: {

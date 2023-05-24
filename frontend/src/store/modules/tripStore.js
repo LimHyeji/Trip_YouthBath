@@ -15,9 +15,6 @@ const tripStore = {
     SET_TRIP_LIST(state, trips) {
       state.trips = trips;
     },
-    SET_DETAIL_TRIP(state, trip) {
-      state.trip = trip;
-    },
   },
   actions: {
     getSearchTrip: ({ commit }, sidoCode,gugunCode,contentTypeId) => {
@@ -29,15 +26,13 @@ const tripStore = {
       searchTrip(
         params,
         ({ data }) => {
-          commit("SET_TRIP_LIST", data);
+          console.log(data);
+          commit("SET_TRIP_LIST", data.response);
         },
         (error) => {
           console.log(error);
         }
       );
-    },
-    detailTrip: ({ commit }, trip) => {
-      commit("SET_DETAIL_TRIP", trip);
     },
   },
 };

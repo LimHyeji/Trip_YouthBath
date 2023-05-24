@@ -1,8 +1,7 @@
-import { apiToCheckInstance } from "@/api/index.js";
+import { tripInstance } from "@/api/index.js";
 
-const api = apiToCheckInstance();
+const api = tripInstance();
 
-  
 function searchTrip(params, success, fail) {
   api.post(`/trip/search`, JSON.stringify(params)).then(success).catch(fail);
 }
