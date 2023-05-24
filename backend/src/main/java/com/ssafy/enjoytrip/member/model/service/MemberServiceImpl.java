@@ -1,5 +1,7 @@
 package com.ssafy.enjoytrip.member.model.service;
 
+import com.ssafy.enjoytrip.mail.dto.Message;
+import com.ssafy.enjoytrip.mail.service.Notification;
 import com.ssafy.enjoytrip.member.model.dto.*;
 import com.ssafy.enjoytrip.member.model.repository.MemberRepository;
 import com.ssafy.enjoytrip.member.model.repository.MemberSecRepository;
@@ -12,6 +14,7 @@ import com.ssafy.enjoytrip.util.jwt.JWTException;
 import com.ssafy.enjoytrip.util.jwt.JWTProvider;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.NoSuchAlgorithmException;
@@ -27,17 +30,22 @@ public class MemberServiceImpl implements MemberService{
 
     private final MemberSecRepository memberSecRepository;
     private final JWTProvider jwtProvider;
+    private final Notification notification;
 
 
-    public MemberServiceImpl(MemberRepository memberRepository, MemberSecRepository memberSecRepository, JWTProvider jwtProvider){
+    public MemberServiceImpl(MemberRepository memberRepository,
+                             MemberSecRepository memberSecRepository,
+                             JWTProvider jwtProvider,
+                             Notification notification){
         this.memberSecRepository=memberSecRepository;
         this.memberRepository=memberRepository;
         this.jwtProvider=jwtProvider;
+        this.notification=notification;
     }
 
     //이메일중복을 피하기위해 serializable로 격리수준 upgrade
     //또한 member테이블과 membersec테이블에 한 트랜잭션 범위안에 동시에 저장되거나 동시에 저장되지 않아야함
-    @Transactional(isolation = Isolation.SERIALIZABLE,rollbackFor = Exception.class)
+    @Transactional(isolation = Isolation.SERIALIZABLE,propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public void regist(MemberJoinDto dto) throws JoinException {
         //비밀번호와 비밀번호 확인이 일치하는지 체크
         if(!dto.getPassword().equals(dto.getPasswordCheck())){
@@ -77,9 +85,19 @@ public class MemberServiceImpl implements MemberService{
 
             MemberVO memberVo = new MemberVO(dto.getId(),hashPw,dto.getName());
             MemberSecVO memberSecVO = new MemberSecVO(dto.getId(),salt);
+
+            String authUUID = UUID.randomUUID().toString();
+            memberSecVO.setUuid(authUUID);
+            memberSecVO.setAuth(false);
+
             memberVo.setMemberSec(memberSecVO);
             memberRepository.save(memberVo);
             memberSecRepository.save(memberSecVO);
+
+            //인증 메일 발송
+            Message authMessage = new Message(memberVo.getId(),authUUID);
+
+            notification.sendNotification(authMessage);
         }catch(Exception e){
             throw new JoinException("회원가입 오류");
         }
@@ -90,6 +108,12 @@ public class MemberServiceImpl implements MemberService{
         //유저가 존재하는지 확인, 없으면 exception throw
         MemberVO member = memberRepository.findById(dto.getId()).orElseThrow(()->new LoginException("유저가 존재하지 않습니다."));
         MemberSecVO memberSec = member.getMemberSec();
+
+        //인증되지 않은 사용자라면
+        if(!memberSec.isAuth()){
+            throw new LoginException("해당 이메일로 인증 메일을 발송했습니다. 확인을 눌러주세요");
+        }
+
         //유저의 blocked time을 검사. 지나지 않았으면 exception throw
         if(memberSec.getBlocked_time()!= null && memberSec.getBlocked_time().compareTo(LocalDateTime.now())>0){
             String format = memberSec.getBlocked_time().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).concat(" 까지 로그인이 불가능합니다.");

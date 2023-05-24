@@ -14,6 +14,9 @@ public class MemberSecVO {
     private Integer try_count;
     private LocalDateTime blocked_time;
 
+    private boolean isAuth;
+    private String uuid;
+
     @OneToOne
     @JoinColumn(name="id",referencedColumnName = "id",foreignKey = @ForeignKey(name="fk_membersec_member"))
     private MemberVO member;
@@ -76,6 +79,22 @@ public class MemberSecVO {
             setTry_count(0);
             setBlocked_time(LocalDateTime.now().plusMinutes(1));
         }
+    }
+
+    public boolean isAuth() {
+        return isAuth;
+    }
+
+    public void setAuth(boolean auth) {
+        isAuth = auth;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     /**
