@@ -25,16 +25,12 @@ public class HtmlEmailNotification implements Notification {
     @Override
     @Transactional
     public void sendNotification(Message message) throws MessagingException {
-        String TEMPLATE = String.format("<a href='%s'>인증하기</a>","http://localhost:9999/member/auth/".concat(message.getUuid()));
+        String TEMPLATE = String.format("<a href='%s'>인증하기</a>","http://localhost:9999/auth/".concat(message.getUuid()));
         MimeMessage htmlEmail= javaMailSender.createMimeMessage();
         try {
             System.out.println("TEMPLATE = " + TEMPLATE);
             System.out.println("message.getEmail() = " + message.getEmail());
             System.out.println("message.getUuid() = " + message.getUuid());
-//            htmlEmail.setSubject(SUBJECT,"UTF-8");
-//            htmlEmail.setText(TEMPLATE,"UTF-8","html");
-//            htmlEmail.addRecipient(javax.mail.Message.RecipientType.TO,new InternetAddress(message.getEmail()));
-//            javaMailSender.send(htmlEmail);
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(htmlEmail,false,"UTF-8");
             mimeMessageHelper.setTo(message.getEmail());
             mimeMessageHelper.setSubject(SUBJECT);

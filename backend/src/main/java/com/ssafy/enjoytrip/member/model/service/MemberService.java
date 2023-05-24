@@ -27,4 +27,6 @@ public interface MemberService {
     public MemberInfoDto updateMember(String token, MemberUpdateDto dto) throws UpdateException;
 
     public Boolean deleteMember(String token) throws DeleteException;
+
+    void emailAuth(String uuid) throws InfoCheckException;
 }

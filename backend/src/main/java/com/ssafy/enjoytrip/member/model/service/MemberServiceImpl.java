@@ -216,4 +216,12 @@ public class MemberServiceImpl implements MemberService{
             throw new DeleteException(e.getMessage());
         }
     }
+
+    @Override
+    public void emailAuth(String uuid) throws InfoCheckException {
+        MemberSecVO result = memberSecRepository.findByUuid(uuid).orElseThrow(()->new InfoCheckException("인증에 실패했습니다."));
+
+        result.setAuth(true);
+        memberSecRepository.save(result);
+    }
 }

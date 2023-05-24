@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
     private final JWTInterceptor jwtInterceptor;
-    private final String[] JWT_WHITE_LIST = {"/user/login","/user/regist"};
+    private final String[] JWT_WHITE_LIST = {"/user/login","/user/regist","/auth/**"};
 
     public WebMvcConfig(JWTInterceptor jwtInterceptor) {
         this.jwtInterceptor = jwtInterceptor;
