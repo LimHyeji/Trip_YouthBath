@@ -7,7 +7,7 @@
 <script>
 import { mapState, mapActions, mapMutations } from "vuex";
 
-const itemStore = "itemStore";
+const sidogugunStore = "sidogugunStore";
 
 export default {
   name: "SelectGugun",
@@ -17,22 +17,25 @@ export default {
     };
   },
   props: {
-    sidoCode: String,
+    sidoCode: Number,
   },
   watch: {
     sidoCode() {
       this.CLEAR_GUGUN_LIST();
       this.gugunCode = null;
-      if (this.sidoCode) this.getGugun(this.sidoCode);
+      if (this.sidoCode) {
+        //console.log(this.sidoCode);
+        this.getGugun(this.sidoCode);}
+
     },
   },
   computed: {
-    ...mapState(itemStore, ["guguns"]),
+    ...mapState(sidogugunStore, ["guguns"]),
   },
   created() {},
   methods: {
-    ...mapActions(itemStore, ["getGugun"]),
-    ...mapMutations(itemStore, ["CLEAR_GUGUN_LIST"]),
+    ...mapActions(sidogugunStore, ["getGugun"]),
+    ...mapMutations(sidogugunStore, ["CLEAR_GUGUN_LIST"]),
     changeGugun() {
       this.$emit("select-gugun", this.gugunCode);
     },

@@ -6,7 +6,7 @@ import com.ssafy.enjoytrip.trip.model.dto.TripSidoDto;
 
 public interface TripService {
 
-    public TripSidoDto getSidoList(String token) throws InfoCheckException;
+    public TripSidoDto getSidoList();
 
-    public TripGugunDto getGugunList(String token, int sido_code) throws InfoCheckException;
+    public TripGugunDto getGugunList(int sido_code);
 }

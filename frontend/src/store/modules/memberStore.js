@@ -1,5 +1,3 @@
-// import jwtDecode from "jwt-decode";
-// import router from "@/router";
 import { login } from "@/api/member";
 
 const memberStore = {
@@ -55,8 +53,6 @@ const memberStore = {
                 }
             );
         },
-        //findById 이용,,,, getMemberInfo
-        //사용불가토큰 처리
     }
 }
 

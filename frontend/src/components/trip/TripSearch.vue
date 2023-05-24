@@ -1,61 +1,46 @@
 <template>
   <div>
-    <b-dropdown
-      split
-      split-variant="outline-primary"
-      variant="primary"
-      text="Split Variant Dropdown"
-      class="m-2"
-    >
-      <b-dropdown-item href="#">Action</b-dropdown-item>
-      <b-dropdown-item href="#">Another action</b-dropdown-item>
-      <b-dropdown-item href="#">Something else here...</b-dropdown-item>
-    </b-dropdown>
-    <b-dropdown
-      split
-      split-variant="outline-primary"
-      variant="primary"
-      text="Split Variant Dropdown"
-      class="m-2"
-    >
-      <b-dropdown-item href="#">Action</b-dropdown-item>
-    </b-dropdown>
-    <kakao-map />
+    <br/>
+    <b-row class="mt-3">
+      <select-sido @select-sido="selectSido"></select-sido>
+      <select-gugun :sidoCode="sidoCode" @select-gugun="selectGugun"></select-gugun>
+    </b-row>
+    <br/>
+    <b-row class="mt-3">
+      <b-col></b-col>
+      <b-col cols="10">
+        <kakao-map />
+      </b-col>
+      <b-col></b-col>
+    </b-row>
   </div>
 </template>
 
 <script>
-import { sidoList, gugunList } from "@/api/trip.js";
+import SelectSido from "@/components/item/SelectSido.vue";
+import SelectGugun from "@/components/item/SelectGugun.vue";
 import KakaoMap from "@/components/trip/KakaoMap.vue";
 
 export default {
   name: "TripSearch",
   components: {
+    SelectSido,
+    SelectGugun,
     KakaoMap,
   },
   data() {
     return {
-      message: "",
+      sidoCode:null,
     };
   },
-  mounted() {
-    sidoList(
-      ({ data }) => {
-        console.log(data);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-    gugunList(
-      { sidoCode: 1 },
-      ({ data }) => {
-        console.log(data);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+  methods:{
+    selectSido(sidoCode){
+      this.sidoCode=sidoCode;
+      console.log(sidoCode);
+    },
+    selectGugun(gugunCode){
+      console.log(gugunCode);
+    },
   },
 };
 </script>

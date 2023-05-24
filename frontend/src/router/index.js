@@ -134,7 +134,7 @@ router.beforeEach(async (to, from, next) => {
 async function isValidToken(token) {
   // 토큰 유효성 검사 로직을 구현하세요.
   // 유효한 토큰인 경우 true를 반환하고, 그렇지 않은 경우 false를 반환합니다.
-  console.log(token);
+  //console.log(token);
   let data = await http.get("http://localhost:9999/user",{
     withCredentials:true,
     headers:{

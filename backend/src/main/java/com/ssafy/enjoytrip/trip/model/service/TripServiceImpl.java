@@ -33,27 +33,13 @@ public class TripServiceImpl implements TripService{
         this.jwtProvider=jwtProvider;
     }
 
-    public TripSidoDto getSidoList(String token) throws InfoCheckException {
-        try{
-            MemberVO memberInfo=jwtProvider.parseInfo(token);
-            MemberVO memberVO=memberRepository.findById(memberInfo.getId()).orElseThrow(()->new InfoCheckException("유저가 존재하지 않습니다"));
-
+    public TripSidoDto getSidoList() {
             List<TripSidoVO> sidoList= tripSidoRepository.findAll();
             return new TripSidoDto(sidoList);
-        }catch(JWTException e){
-            throw new InfoCheckException(e.getMessage());
-        }
     }
 
-    public TripGugunDto getGugunList(String token, int sido_code) throws InfoCheckException {
-        try{
-            MemberVO memberInfo=jwtProvider.parseInfo(token);
-            MemberVO memberVO=memberRepository.findById(memberInfo.getId()).orElseThrow(()->new InfoCheckException("유저가 존재하지 않습니다"));
-
+    public TripGugunDto getGugunList(int sido_code){
             List<TripGugunVO> gugunList= tripGugunRepository.findBySidoCode(sido_code);
             return new TripGugunDto(gugunList);
-        }catch(JWTException e){
-            throw new InfoCheckException(e.getMessage());
-        }
     }
 }
