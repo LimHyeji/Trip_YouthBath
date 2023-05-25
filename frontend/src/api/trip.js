@@ -1,12 +1,9 @@
-import { apiInstance } from "@/api/index.js";
+import { tripInstance } from "@/api/index.js";
 
-const api = apiInstance();
+const api = tripInstance();
 
-function sidoList(success, fail) {
-    api.get(`/trip/sido`).then(success).catch(fail);
-  }
-  
-  function gugunList(sidoCode, success, fail) {
-    api.get(`/trip/gugun/${sidoCode}`).then(success).catch(fail);
-  }
-  export { sidoList, gugunList };
+function searchTrip(params, success, fail) {
+  api.post(`/trip/search`, JSON.stringify(params)).then(success).catch(fail);
+}
+
+  export { searchTrip };

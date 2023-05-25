@@ -13,7 +13,7 @@ function apiInstance() {
 }
   
 function apiToCheckInstance() {
- console.log(store.state.accessToken);
+ console.log("저장된 토큰 : " + store.state.accessToken);
   const instance = axios.create({
     baseURL: process.env.VUE_APP_API_BASE_URL,
     withCredentials:true,
@@ -26,9 +26,10 @@ function apiToCheckInstance() {
 }
   
   // trip deal API axios instance
-  function tripInstance() {
+function tripInstance() {
+  console.log("저장된 토큰 : " + store.state.accessToken);
     const instance = axios.create({
-      baseURL: process.env.VUE_APP_TRIP_DEAL_URL,
+      baseURL: process.env.VUE_APP_API_BASE_URL,
       withCredentials:true,
       headers: {
         "Content-Type": "application/json;charset=utf-8",

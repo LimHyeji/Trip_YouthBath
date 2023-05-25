@@ -1,7 +1,7 @@
 <template>
-  <b-col class="sm-3">
+  <div>
     <b-form-select v-model="gugunCode" :options="guguns" @change="changeGugun"></b-form-select>
-  </b-col>
+  </div>
 </template>
 
 <script>
@@ -24,9 +24,8 @@ export default {
       this.CLEAR_GUGUN_LIST();
       this.gugunCode = null;
       if (this.sidoCode) {
-        //console.log(this.sidoCode);
-        this.getGugun(this.sidoCode);}
-
+        this.getGugun(this.sidoCode);
+      }
     },
   },
   computed: {

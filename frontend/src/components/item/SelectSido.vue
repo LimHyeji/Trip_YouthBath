@@ -1,7 +1,7 @@
 <template>
-  <b-col class="sm-3">
+  <div>
     <b-form-select v-model="sidoCode" :options="sidos" @change="changeSido"></b-form-select>
-  </b-col>
+  </div>
 </template>
 
 <script>
