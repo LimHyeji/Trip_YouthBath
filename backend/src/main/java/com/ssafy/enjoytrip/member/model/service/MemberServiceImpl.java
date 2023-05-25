@@ -97,7 +97,7 @@ public class MemberServiceImpl implements MemberService{
             //인증 메일 발송
             Message authMessage = new Message(memberVo.getId(),authUUID);
 
-//            notification.sendNotification(authMessage);
+            notification.sendNotification(authMessage);
         }catch(Exception e){
             throw new JoinException("회원가입 오류");
         }
@@ -110,9 +110,9 @@ public class MemberServiceImpl implements MemberService{
         MemberSecVO memberSec = member.getMemberSec();
 
         //인증되지 않은 사용자라면
-//        if(!memberSec.isAuth()){
-//            throw new LoginException("해당 이메일로 인증 메일을 발송했습니다. 확인을 눌러주세요");
-//        }
+        if(!memberSec.isAuth()){
+            throw new LoginException("해당 이메일로 인증 메일을 발송했습니다. 확인을 눌러주세요");
+        }
 
         //유저의 blocked time을 검사. 지나지 않았으면 exception throw
         if(memberSec.getBlocked_time()!= null && memberSec.getBlocked_time().compareTo(LocalDateTime.now())>0){
