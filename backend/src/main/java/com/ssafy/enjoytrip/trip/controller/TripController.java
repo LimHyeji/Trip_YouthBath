@@ -37,6 +37,12 @@ public class TripController {
         this.tripService=tripService;
     }
 
+    @GetMapping(value="/search")
+    public ResponseEntity<ApiUtils.ApiResult<TripListDto>> getAllTripList(@RequestHeader("Authorization") String authorization) throws InfoCheckException {
+        String token = authorization.split(" ")[1];
+        return success(tripService.getAllTripList(token),HttpStatus.OK);
+    }
+
     @GetMapping(value="/sido")
     public ResponseEntity<ApiUtils.ApiResult<TripSidoDto>> getSidoList(){
         return success(tripService.getSidoList(), HttpStatus.OK);

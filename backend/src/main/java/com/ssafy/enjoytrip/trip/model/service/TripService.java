@@ -8,9 +8,12 @@ import com.ssafy.enjoytrip.trip.model.dto.TripListDto;
 
 public interface TripService {
 
+    public TripListDto getAllTripList(String token) throws InfoCheckException;
+
     public TripSidoDto getSidoList();
 
     public TripGugunDto getGugunList(int sido_code);
 
     public TripListDto getTripList(String token, TripSearchDto tripSearchDto) throws InfoCheckException;
+
 }

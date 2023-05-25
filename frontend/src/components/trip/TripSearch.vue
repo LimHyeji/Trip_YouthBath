@@ -21,7 +21,7 @@
     <b-row class="mt-3">
       <b-col></b-col>
       <b-col cols="10">
-        <kakao-map />
+        <kakao-map :trips="tripList"/>
       </b-col>
       <b-col></b-col>
     </b-row>
@@ -48,6 +48,7 @@ export default {
       sidoCode: null,
       gugunCode: null,
       contentTypeId: null,
+      tripList:[],
     };
   },
   watch: {},
@@ -70,7 +71,8 @@ export default {
       gugunCode:this.gugunCode,
       contentTypeId:this.contentTypeId },
       ({ data }) => {
-        console.log(data.response.tripList);
+        //console.log(data.response.tripList);
+        this.tripList=data.response.tripList;
       },
       (error) => {
         console.log(error);

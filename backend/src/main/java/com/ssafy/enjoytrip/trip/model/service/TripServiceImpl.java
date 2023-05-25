@@ -40,6 +40,18 @@ public class TripServiceImpl implements TripService{
         this.jwtProvider=jwtProvider;
     }
 
+    public TripListDto getAllTripList(String token) throws InfoCheckException {
+        try {
+            String id = jwtProvider.parseInfo(token).getId();
+            MemberVO member = memberRepository.findById(id).orElseThrow(() -> new InfoCheckException("사용자가 존재하지 않습니다."));
+            List<TripVO> tripList= tripRepository.findAll();
+            return new TripListDto(tripList);
+        }
+        catch(JWTException e) {
+            throw new InfoCheckException(e.getMessage());
+        }
+    }
+
     public TripSidoDto getSidoList() {
             List<TripSidoVO> sidoList= tripSidoRepository.findAll();
             return new TripSidoDto(sidoList);

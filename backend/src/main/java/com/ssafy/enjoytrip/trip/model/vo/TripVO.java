@@ -154,4 +154,8 @@ public class TripVO {
         }
     }
 
+    public double getLongitude(){
+        return longitude;
+    }
+
 }

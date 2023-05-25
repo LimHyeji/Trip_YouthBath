@@ -38,13 +38,39 @@
                 <div v-if="!updateMode">
                   <span>아이디 : {{user.id}}</span><br>
                   <span>이름 : {{user.name}}</span><br>
-                  <button v-on:click="toggleUpdateMode">수정</button><button v-on:click="deleteMember">삭제</button>
+                  <b-button
+                type="button"
+                style="background-color: #00bbff; width: 200px"
+                class="m-1"
+                v-on:click="toggleUpdateMode"
+                >수정</b-button
+              >
+              <b-button
+                type="button"
+                style="background-color: #00bbff; width: 200px"
+                class="m-1"
+                v-on:click="deleteMember">삭제
+                </b-button
+              >
                 </div>
                 <!-- 수정부분 -->
                 <div v-else>
                   <span>아이디 : {{user.id}}</span><br>
                   이름 : <input type="text" id="nameInput" v-bind:value="user.name"><br>
-                  <button v-on:click="updateMember">수정하기</button><button v-on:click="toggleUpdateMode">취소</button>
+                <b-button
+                type="button"
+                style="background-color: #00bbff; width: 200px"
+                class="m-1"
+                v-on:click="updateMember"
+                >수정</b-button
+              >
+                <b-button
+                type="button"
+                style="background-color: #00bbff; width: 200px"
+                class="m-1"
+                v-on:click="toggleUpdateMode"
+                >취소</b-button
+              >
                 </div>
               </div>
             </b-card>

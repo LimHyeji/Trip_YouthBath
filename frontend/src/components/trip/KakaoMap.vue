@@ -14,10 +14,20 @@ export default {
     };
   },
   props: {
-    //여행지 배열
+    trips:[],
   },
   watch: {
-    //여행지 찾아 마커 띄우는 함수
+    trips(){
+      console.log("여행지 리스트",this.trips);
+      this.positions=[];
+      this.trips.forEach((trip)=>{
+        let obj={};
+        obj.title=trip.title;
+        obj.latlng=new window.kakao.maps.LatLng(trip.latitude,trip.longitude);
+        this.positions.push(obj);
+      });
+      this.loadMarker();
+    },
   },
   mounted() {
     if (window.kakao && window.kakao.maps) {
@@ -48,9 +58,32 @@ export default {
     },
     loadMarker() {
       //마커 띄우는 함수
+      this.deleteMarker();
+      this.markers=[];
+      this.positions.forEach((position)=>{
+        const marker=new window.kakao.maps.Marker({
+          map:this.map,
+          position:position.latlng,
+          title:position.title,
+        });
+        this.markers.push(marker);
+      });
+      console.log("마커수"+this.markers.length);
+
+      const bounds=this.positions.reduce(
+        (bounds,position)=>bounds.extend(position.latlng),
+        new window.kakao.maps.LatLngBounds()
+      );
+
+      this.map.setBounds(bounds);
     },
     deleteMarker() {
       //마커 지우는 함수
+      if(this.markers.length>0){
+        this.markers.forEach((item)=>{
+          item.setMap(null);
+        });
+      }
     },
   },
 };
