@@ -33,9 +33,7 @@ import SelectSido from "@/components/item/SelectSido.vue";
 import SelectGugun from "@/components/item/SelectGugun.vue";
 import SelectContentTypeId from "@/components/item/SelectContentTypeId.vue";
 import KakaoMap from "@/components/trip/KakaoMap.vue";
-import { mapActions } from "vuex";
-
-const tripStore = "tripStore";
+import { searchTrip } from "@/api/trip";
 
 export default {
   name: "TripSearch",
@@ -54,7 +52,6 @@ export default {
   },
   watch: {},
   methods: {
-    ...mapActions(tripStore, ["getSearchTrip"]),
     selectSido(sidoCode) {
       this.sidoCode = sidoCode;
     },
@@ -68,7 +65,17 @@ export default {
       console.log(this.contentTypeId);
     },
     search() {
-      this.getSearchTrip(this.sidoCode, this.gugunCode, this.contentTypeId);
+       searchTrip(
+      { sidoCode:this.sidoCode,
+      gugunCode:this.gugunCode,
+      contentTypeId:this.contentTypeId },
+      ({ data }) => {
+        console.log(data.response.tripList);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
     },
   },
 };

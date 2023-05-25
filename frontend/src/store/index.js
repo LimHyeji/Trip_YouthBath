@@ -4,7 +4,6 @@ import createPersistedState from "vuex-persistedstate";
 // module import
 import memberStore from "@/store/modules/memberStore";
 import sidogugunStore from "@/store/modules/sidogugunStore";
-import tripStore from "@/store/modules/tripStore";
 
 Vue.use(Vuex);
 
@@ -16,7 +15,6 @@ export default new Vuex.Store({
   modules: {
     memberStore,
     sidogugunStore,
-    tripStore,
   },
   plugins: [
     createPersistedState({
