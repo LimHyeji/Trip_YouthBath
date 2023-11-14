@@ -1,37 +1,118 @@
-# EnjoyTrip
 
-SSAFY 9기 김현욱 &amp; 임혜지
+🌟 YouthBath (솔프 팀)
+> <목표> JWT 보안 강화 - JWT 암호화를 통한 취약점 개선 <BR>
+> `현욱` : 보안, 백엔드 <BR>
+> `혜지` : 프론트엔드, 백엔드
 
-솔프 팀의 YouthBath 프로젝트
----
+:zap: 사용 기술
+> JAVA, SpringBoot, Vue, JPA
 
-# 페이지 정리
-### 회원가입 페이지
-![image](/uploads/fd4a356ec3631b6bad863e10bb8f4c71/image.png)
 
-### 로그인 페이지
-![image](/uploads/3919e46acdcc91ae64d9880a3a3c40c4/image.png)
-
-### 메인 페이지
-![image](/uploads/8f8a5813aa5d87007aecf67c40ef2a50/image.png)
-
-# 마인드맵
-![mindmap_현욱혜지_](/uploads/90eab2f069575b62f6a83b52a398d50a/mindmap_현욱혜지_.png)
-
-# Sequence Diagram
+# 프로젝트 기획
+## 페이지 디자인
 ### 회원가입
-![image](/uploads/23ce424bc4fac650c945d7314eebffdb/image.png)
+![Untitled](https://github.com/LimHyeji/Trip_YouthBath/assets/87571953/701a60d4-391d-4fcf-bd5e-5542fe772db2)
+
+```
+1. 이메일을 id로 통일
+2. 이메일 중복 확인(트랜잭션) 및 인증코드 발송
+```
 
 ### 로그인
-![image](/uploads/cc29c137c5892a3936d3296d8e6be009/image.png)
+![Untitled (1)](https://github.com/LimHyeji/Trip_YouthBath/assets/87571953/1bbbf09c-2dd6-456a-955d-b8a0573184c8)
 
-# Class Diagram (~ing)
-### VO
-![image](/uploads/f83c5f02b8dd4e7a695a722d3bcf9072/image.png)
+```
+1. 로그인 시도 횟수 제한
+2. ip당 로그인 시도 횟수 제한
+```
 
-### Repository
-![image](/uploads/fc1d7e39f4ac9fdd0cc24df0983e1726/image.png)
+### 메인
+![Untitled (2)](https://github.com/LimHyeji/Trip_YouthBath/assets/87571953/a9bb8272-10db-4f23-aa23-a7cd8560ab9a)
+
+```
+메인 기능은 로그인이 선행되지 않으면 접근 불가!
+1. 사용자 이름 클릭 시, 토글바
+	-> 마이페이지( 회원정보 조회, 수정, 삭제)
+			비밀번호 확인이 선행되지 않으면 접근 불가!
+2. 지도 검색 및 GPS 기반 거리순 정렬
+
+(내 여행지 관리 기능 - 마커/리스트로 가고 싶은 여행지 체크 > 내 여행지 등록 -> ... 커뮤니티 활용)
+```
 
 ---
-팀노션 링크
-https://heliotrope-agate-a72.notion.site/_-53d914c435174c6b9263d372e03bf71d
+
+## 시퀀스 다이어그램
+
+### 회원가입
+![Untitled (3)](https://github.com/LimHyeji/Trip_YouthBath/assets/87571953/93b3f6c9-b709-4fa5-86b1-64353df145e5)
+
+### 로그인
+![Untitled (4)](https://github.com/LimHyeji/Trip_YouthBath/assets/87571953/dcae42dc-8559-4c0e-9b2e-7ad4e184bcf8)
+
+---
+
+## 클래스 다이어그램
+
+### VO
+![Untitled (5)](https://github.com/LimHyeji/Trip_YouthBath/assets/87571953/1ff413b5-02e1-4060-bad0-1a359008ae29)
+
+### Repository
+![Untitled (6)](https://github.com/LimHyeji/Trip_YouthBath/assets/87571953/0e9f8647-ee24-4d97-8ca8-a18f72b9d3a4)
+
+---
+
+# 프로젝트 결과
+## 추가 구현 사항
+- 이메일 2차 인증
+- XSS 방어
+
+## 세션 VS. JWT
+🌟 동시 로그인 100여 개의 상황 가정 <BR>
+1. 메모리와 응답 시간 비교 <BR>
+2. 공통점과 차이점 <BR>
+3. 대칭키와 비대칭키 암호화 방식 비교 → 응답 시간 면에서 `대칭키` 압승 <BR>
+
+```
+세션은 서버측 메모리를 사용한다. 
+
+서버측 메모리를 사용하기 때문에, 서버의 재부팅, 원치 않는 서버의 종료가 발생한다면 
+세션메모리가 초기화되기 때문에 재인증과정을 거쳐야 한다.
+
+서버측 메모리를 사용하기 때문에, 스케일 아웃으로 서버를 증설하게 된다면, 
+각 서버 끼리의 세션 불일치를 해결해야 하는 추가적인 리소스가 필요합니다.
+
+서버측 메모리를 사용하기 때문에, 한 서버에 동시 접속자가 많아지면 
+서버측 heap 메모리의 사용량이 급격하게 증가하게 됩니다.
+
+JWT는 서버측 메모리를 사용하지 않는다. 
+
+서버측 메모리에 유저의 인증정보를 저장하는것이 아닌, 
+토큰으로 만들어 유저에게 위임하기 때문에 서버측 메모리 사용량이 세션에 비해 현저히 적다.
+
+서버측에 상태를 저장하지 않고, 토큰을 해석하며 인증정보를 확인하기 때문에 스케일아웃으로 서버를 증설한다 해도, 세션불일치가 일어나는 일이 없다.
+
+네트워크 트래픽 가중 
+
+토큰에 담는 인증정보가 많아지면 많아질수록 토큰의 길이가 더욱더 길어짐.
+
+인증이 필요한 서비스를 요청할 때 토큰을 함께 보내야 하므로, 인증정보가 많아지면 많아질수록 트래픽이 증가하게 됨.
+
+보안 문제 
+
+사용자에게 전달되는 토큰은 정보가 “암호화” 되지 않고, Base64로 “인코딩”된 문자열입니다.
+
+따라서 Base64로 디코딩을 하게되면, 토큰에 들어있는 인증정보를 모두 확인할 수 있습니다.
+```
+
+## 트러블 슈팅
+### CORS 에러 RequestMethod.OPTIONS
+💡 실제 이루어지는 요청 이전에 options 요청 발생, 응답값 없음 (preflight) <BR>
+브라우저가 서버에게 지원하는 옵션들을 미리 요청하고 허가된 요청에 한해 전송하기 위한 보안상 목적으로, 모든 경우에 발생하지 않음 <BR>
+그러나 수백 ms 응답 속도가 중요하다면 발생하지 않게 처리해야 함 <BR>
+ <BR>
+발생하는 상황?  <BR>
+CORS(cross origin resource sharing) 관련 <BR>
+서버 허용 옵션을 미리 확인하고, 허용되지 않은 요청을 405(method not allowed) 에러 발생 <BR>
+실제 요청 전송 안함 <BR>
+ <BR>
+단, get, head, post 중 하나이면서, 허용된 헤더만 포함하면서, 허용된 content-type인 경우엔 발생 안함 <BR>
